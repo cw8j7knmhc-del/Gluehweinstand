@@ -39,7 +39,33 @@ nav button{margin:0 3px}.row .step{margin:0 4px}.row .grow{flex:1}
 @media(max-width:767px){#checkoutBar{display:flex!important;justify-content:center;text-align:center;bottom:64px;padding:7px 12px}main{padding-bottom:170px}.layout{display:block}.drink-tile{width:calc(50% - 8px)}}
 @media(min-width:601px) and (max-width:767px){.drink-tile{width:calc(33.333% - 8px)}}
 @media(max-width:767px){#paymentPane{display:block!important}#orderPane{display:block!important}}
-</style></head><body><header><h1>Glühweinstand <small>V6.7 iOS 10</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
+/* V6.9: Vollbreite und stabile Touch-Bedienung auf iOS 10. */
+html,body{margin:0;padding:0;max-width:none;-webkit-text-size-adjust:100%}
+main{width:100%;max-width:1200px;padding:10px 12px 86px;box-sizing:border-box}
+#sale.layout{display:block!important}
+#sale.layout.hidden{display:none!important}
+#sale>#orderPane,#sale>#paymentPane{display:block!important;width:100%!important;padding:0!important;min-width:0;box-sizing:border-box}
+#checkoutBar,.back-link{display:none!important}
+.drinks{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;margin:-4px}
+.drink-tile{width:calc(33.3333% - 8px);margin:4px;box-sizing:border-box}
+.drink{min-height:76px;padding:8px 10px}
+.drink strong{font-size:17px;white-space:normal;word-wrap:break-word;line-height:1.2}
+.drink-controls{height:46px}
+.drink-controls button{width:52px;height:46px;min-height:46px;font-size:24px}
+.drink-controls .num{font-size:23px}
+.panel{padding:12px;margin-bottom:10px}
+#paymentPane .sum{margin:4px 0}
+#paymentPane .total,#paymentPane .change{margin:6px 0;padding:8px 12px}
+#paymentPane .total strong,#paymentPane .change strong{font-size:32px}
+#paymentPane .cashkeys button{min-height:44px}
+#paymentPane .wide{min-height:46px}
+button:active{transform:none;-webkit-transform:none}
+button{transition:none;-webkit-transition:none;touch-action:manipulation}
+.drink-tile.selected{box-shadow:none;border:2px solid #852f3b}
+.drink-tile:not(.selected){border:2px solid #e4dbd4}
+nav{box-shadow:none}
+@media(max-width:540px){.drink-tile{width:calc(50% - 8px)}.drink strong{font-size:15px}.drink-controls button{width:44px}}
+</style></head><body><header><h1>Glühweinstand <small>V6.9 iOS 10</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
 <section id="sale" class="layout"><div id="orderPane"><div class="panel"><h2 class="drinks-heading">Getränke <span id="itemCount" class="item-count"></span></h2><div id="drinks" class="drinks"></div></div><div class="panel"><h2>Bechereinsatz <small id="depositLabel"></small></h2><div class="row"><div class="grow"><b>Becher ausgegeben</b><br><small id="outValue"></small></div><button class="step" id="outMinus" aria-label="Ausgegebene Becher minus">−</button><span class="num" id="out"></span><button class="step" id="outPlus" aria-label="Ausgegebene Becher plus">+</button></div><div class="row"><div class="grow"><b>Becher retour</b><br><small id="backValue"></small></div><button class="step" id="backMinus" aria-label="Retournierte Becher minus">−</button><span class="num" id="back"></span><button class="step" id="backPlus" aria-label="Retournierte Becher plus">+</button></div></div></div>
 <div id="paymentPane"><div class="panel"><button id="backToOrder" class="back-link">‹ Zur Bestellung</button><h2>Abrechnung</h2><div class="sum"><span>Getränke</span><b id="drinkSum"></b></div><div class="sum"><span>Bechereinsatz</span><b id="outSum"></b></div><div class="sum"><span>Pfandrückgabe</span><b id="backSum"></b></div><div class="total"><span id="totalLabel">Zu bezahlen</span><strong id="total"></strong></div><div id="cashArea"><label for="cash">Geld gegeben (€)</label><input id="cash" inputmode="decimal" placeholder="0,00" autocomplete="off"><div class="cashkeys" id="cashkeys"></div><button class="wide" id="exact">Passend bezahlt</button></div><div class="change" id="changeBox"><span id="changeLabel">Retourgeld</span><strong id="change">–</strong></div><button class="primary wide" id="finish">Verkauf abschließen</button><button class="wide" id="discard">Bestellung löschen</button><div id="status" class="status" role="status"></div></div></div><div id="checkoutBar"><div><small id="checkoutLabel">Zu bezahlen</small><strong id="checkoutTotal">0,00 €</strong></div></div></section>
 <section id="stats" class="hidden"><div class="panel"><h2>Tagesstatistik</h2><label for="date">Verkaufstag</label><input type="date" id="date"><div id="metrics" class="metrics" style="margin-top:14px"></div><h3>Verkaufte Getränke</h3><div id="sales"></div><div id="cupStats" style="margin:14px 0"></div><div class="export"><button id="exportSummary" class="primary">Getränkeliste als CSV</button><button id="exportAll">Einzelne Vorgänge als CSV</button></div><p class="muted">CSV-Dateien sind mit Excel kompatibel (Semikolon, UTF-8). Bitte regelmäßig exportieren; lokale Browserdaten können gelöscht werden.</p><button id="deleteDay" type="button" class="wide" style="color:#a52626;border-color:#cfa6a6">Tagesstatistik löschen</button><div id="deleteConfirm" class="hidden"><p id="deleteQuestion"></p><button id="deleteYes" class="wide" style="background:#a52626;color:white">Endgültig löschen</button><button id="deleteNo" class="wide">Abbrechen</button></div><div id="csvFallbackBox" class="hidden"><p>CSV zum Kopieren (älterer Browser)</p><textarea id="csvFallback" readonly style="width:100%;height:180px"></textarea></div><p id="deleteDayStatus" class="status" role="status" aria-live="polite"></p></div></section>
@@ -72,12 +98,19 @@ function message(s,error){$('status').textContent=s;toggle($('status'),'error',!
 function reset(){q={};out=0;back=0;$('cash').value='';render();}
 function add(p){q[p.id]=(q[p.id]||0)+1;if(p.hasDeposit)out++;message('');render();}
 function remove(p){if(!q[p.id])return;q[p.id]--;if(p.hasDeposit)out=Math.max(0,out-1);render();}
-function render(){var grid=$('drinks');clear(grid);$('itemCount').textContent=count()?count()+' Stk.':'';
-data.products.forEach(function(p){var tile=el('div',undefined,'drink-tile'),amount=q[p.id]||0,b=el('button',undefined,'drink'),controls=el('div',undefined,'drink-controls'),minus=el('button','−','step'),plus=el('button','+','step');b.setAttribute('aria-label',p.name+' hinzufügen');append(b,el('strong',p.name),el('span',money(p.price),'drink-price'),el('small',p.hasDeposit?'+'+money(data.deposit)+' Einsatz':'Ohne Einsatz'));b.onclick=function(){add(p);};minus.disabled=!amount;minus.onclick=function(){remove(p);};plus.onclick=function(){add(p);};append(controls,minus,el('span',String(amount),'num'),plus);toggle(tile,'selected',amount>0);append(tile,b,controls);append(grid,tile);});
+var tiles=[],tileProducts=null,tileDeposit=null;
+function buildTiles(){var grid=$('drinks');clear(grid);tiles=[];tileProducts=data.products;tileDeposit=data.deposit;
+data.products.forEach(function(p){var tile=el('div',undefined,'drink-tile'),b=el('button',undefined,'drink'),controls=el('div',undefined,'drink-controls'),minus=el('button','−','step'),plus=el('button','+','step'),num=el('span','0','num');
+b.setAttribute('aria-label',p.name+' hinzufügen');append(b,el('strong',p.name),el('span',money(p.price),'drink-price'),el('small',p.hasDeposit?'+'+money(data.deposit)+' Einsatz':'Ohne Einsatz'));
+b.onclick=function(){add(p);};minus.setAttribute('aria-label',p.name+' entfernen');minus.onclick=function(){remove(p);};plus.setAttribute('aria-label',p.name+' hinzufügen');plus.onclick=function(){add(p);};
+append(controls,minus,num,plus);append(tile,b,controls);append(grid,tile);tiles.push({id:p.id,tile:tile,num:num,minus:minus,last:null});});}
+function render(){if(tileProducts!==data.products||tileDeposit!==data.deposit)buildTiles();var n=count(),label=n?n+' Stk.':'';if($('itemCount').textContent!==label)$('itemCount').textContent=label;
+tiles.forEach(function(t){var amount=q[t.id]||0;if(t.last===amount)return;t.last=amount;t.num.textContent=String(amount);t.minus.disabled=!amount;toggle(t.tile,'selected',amount>0);});
 var d=due();$('depositLabel').textContent=money(data.deposit)+' / Becher';$('out').textContent=out;$('back').textContent=back;$('outValue').textContent=money(out*data.deposit);$('backValue').textContent=money(-back*data.deposit);$('outMinus').disabled=!out;$('backMinus').disabled=!back;$('drinkSum').textContent=money(subtotal());$('outSum').textContent=money(out*data.deposit);$('backSum').textContent=money(-back*data.deposit);$('totalLabel').textContent=d<0?'Pfand auszuzahlen':'Zu bezahlen';$('total').textContent=money(Math.abs(d));$('checkoutTotal').textContent=money(Math.abs(d));$('checkoutLabel').textContent=d<0?'Auszuzahlen':'Zu bezahlen';toggle($('cashArea'),'hidden',d<=0);$('finish').textContent=d<0?'Pfandrückgabe abschließen':'Verkauf abschließen';renderCash();}
-function renderCash(){var d=due(),received=cents($('cash').value),c=received===null?null:received-d,label='Retourgeld',value='–',bad=false;if(d<=0){label='Auszuzahlen';value=money(-d);}else if(c!==null){label=c<0?'Noch zu bezahlen':'Retourgeld';value=money(Math.abs(c));bad=c<0;}else if($('cash').value.trim()){label='Ungültiger Geldbetrag';bad=true;}
+function saveDraft(){var next={q:copy(q,{}),out:out,back:back,cash:$('cash').value};if(storageOK&&data.draft&&JSON.stringify(data.draft)===JSON.stringify(next))return true;return persist(copy(data,{draft:next}));}
+function renderCash(){var d=due(),received=cents($('cash').value),c=received===null?null:received-d,label='Retourgeld',value='–',bad=false;if(d<0){label='Auszuzahlen';value=money(-d);}else if(d===0){label='Retourgeld';value=hasOrder()?money(0):'–';}else if(c!==null){label=c<0?'Noch zu bezahlen':'Retourgeld';value=money(Math.abs(c));bad=c<0;}else if($('cash').value.trim()){label='Ungültiger Geldbetrag';bad=true;}
 $('changeLabel').textContent=label;$('change').textContent=value;toggle($('changeBox'),'bad',bad);
-$('finish').disabled=!hasOrder()||(d>0&&(received===null||received<d));if(!persist(copy(data,{draft:{q:copy(q,{}),out:out,back:back,cash:$('cash').value}}))){message('Lokale Speicherung fehlgeschlagen.',true);$('offline').textContent='Speicherfehler';$('finish').disabled=true;}}
+$('finish').disabled=!hasOrder()||(d>0&&(received===null||received<d));if(!saveDraft()){message('Lokale Speicherung fehlgeschlagen.',true);$('offline').textContent='Speicherfehler';$('finish').disabled=true;}}
 $('outMinus').onclick=function(){out=Math.max(0,out-1);render();};$('outPlus').onclick=function(){out++;render();};$('backMinus').onclick=function(){back=Math.max(0,back-1);render();};$('backPlus').onclick=function(){back++;render();};$('cash').oninput=renderCash;
 [5,10,20,50,100].forEach(function(n){var b=el('button',n+' €');b.onclick=function(){$('cash').value=dec(n*100);renderCash();};append($('cashkeys'),b);});
 $('exact').onclick=function(){$('cash').value=dec(Math.max(0,due()));renderCash();};
