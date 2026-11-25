@@ -65,9 +65,49 @@ button{transition:none;-webkit-transition:none;touch-action:manipulation}
 .drink-tile:not(.selected){border:2px solid #e4dbd4}
 nav{box-shadow:none}
 @media(max-width:540px){.drink-tile{width:calc(50% - 8px)}.drink strong{font-size:15px}.drink-controls button{width:44px}}
-</style></head><body><header><h1>Glühweinstand <small>V6.9 iOS 10</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
-<section id="sale" class="layout"><div id="orderPane"><div class="panel"><h2 class="drinks-heading">Getränke <span id="itemCount" class="item-count"></span></h2><div id="drinks" class="drinks"></div></div><div class="panel"><h2>Bechereinsatz <small id="depositLabel"></small></h2><div class="row"><div class="grow"><b>Becher ausgegeben</b><br><small id="outValue"></small></div><button class="step" id="outMinus" aria-label="Ausgegebene Becher minus">−</button><span class="num" id="out"></span><button class="step" id="outPlus" aria-label="Ausgegebene Becher plus">+</button></div><div class="row"><div class="grow"><b>Becher retour</b><br><small id="backValue"></small></div><button class="step" id="backMinus" aria-label="Retournierte Becher minus">−</button><span class="num" id="back"></span><button class="step" id="backPlus" aria-label="Retournierte Becher plus">+</button></div></div></div>
-<div id="paymentPane"><div class="panel"><button id="backToOrder" class="back-link">‹ Zur Bestellung</button><h2>Abrechnung</h2><div class="sum"><span>Getränke</span><b id="drinkSum"></b></div><div class="sum"><span>Bechereinsatz</span><b id="outSum"></b></div><div class="sum"><span>Pfandrückgabe</span><b id="backSum"></b></div><div class="total"><span id="totalLabel">Zu bezahlen</span><strong id="total"></strong></div><div id="cashArea"><label for="cash">Geld gegeben (€)</label><input id="cash" inputmode="decimal" placeholder="0,00" autocomplete="off"><div class="cashkeys" id="cashkeys"></div><button class="wide" id="exact">Passend bezahlt</button></div><div class="change" id="changeBox"><span id="changeLabel">Retourgeld</span><strong id="change">–</strong></div><button class="primary wide" id="finish">Verkauf abschließen</button><button class="wide" id="discard">Bestellung löschen</button><div id="status" class="status" role="status"></div></div></div><div id="checkoutBar"><div><small id="checkoutLabel">Zu bezahlen</small><strong id="checkoutTotal">0,00 €</strong></div></div></section>
+/* V6.10: kompakte iPad-Kasse; 6 Getränke, Pfand und Abschluss auf einer Seite. */
+header{min-height:38px;padding:5px 12px}
+main{padding:7px 9px 64px}
+#sale .panel{padding:8px 10px;margin-bottom:7px}
+#sale h2{font-size:16px;margin:0 0 5px}
+#sale .drinks{margin:-3px}
+#sale .drink-tile{width:calc(33.3333% - 6px);margin:3px}
+#sale .drink{min-height:54px;padding:5px 9px}
+#sale .drink strong{font-size:16px;line-height:1.15}
+#sale .drink span.drink-price{font-size:15px;line-height:1.15}
+#sale .drink small{font-size:11px;line-height:1.1}
+#sale .drink-controls{height:44px;padding:0}
+#sale .drink-controls button{min-height:44px;height:44px;width:52px}
+#sale .drink-controls .num{font-size:22px}
+.cup-columns,.payment-columns,.payment-actions{display:-webkit-flex;display:flex;-webkit-align-items:flex-start;align-items:flex-start}
+.cup-columns>.row{width:50%;min-width:0;margin:0;border-bottom:0;padding:0 6px}
+.cup-columns>.row:first-child{border-right:1px solid #e4dbd4;padding-left:0}
+.cup-columns>.row:last-child{padding-right:0}
+.cup-columns .row .step{width:44px;min-height:44px;margin:0 2px}
+.cup-columns .row .num{font-size:21px;min-width:25px}
+.cup-columns .row .grow b{font-size:14px}
+.payment-summary,.payment-money{width:50%;min-width:0;box-sizing:border-box}
+.payment-summary{padding-right:9px}
+.payment-money{padding-left:9px;border-left:1px solid #e4dbd4}
+#paymentPane .sum{margin:3px 0;font-size:13px}
+#paymentPane .total,#paymentPane .change{margin:5px 0;padding:6px 9px}
+#paymentPane .total strong,#paymentPane .change strong{font-size:29px;line-height:1.1;margin-top:1px}
+#paymentPane label{font-size:14px;margin:0 0 3px}
+#paymentPane #cash{height:44px;min-height:44px;font-size:19px;padding:5px 8px}
+#paymentPane .cashkeys{margin:4px 0;gap:0}
+#paymentPane .cashkeys button{font-size:13px;min-height:44px;height:44px;padding:3px 1px;margin-right:3px}
+#paymentPane .cashkeys button:last-child{margin-right:0}
+#paymentPane #exact{margin:0;min-height:44px;font-size:14px;padding:4px}
+.payment-actions{margin-top:5px}
+.payment-actions #finish{width:65%;margin:0 5px 0 0;min-height:46px;font-size:16px}
+.payment-actions #discard{width:35%;margin:0;min-height:46px;font-size:13px}
+#paymentPane #status{font-size:12px;margin-top:3px}
+nav{padding:4px 9px;background:#fff}
+nav button{min-height:46px;font-size:14px}
+@media(max-width:540px){#sale .drink-tile{width:calc(50% - 6px)}.cup-columns,.payment-columns{display:block}.cup-columns>.row,.payment-summary,.payment-money{width:100%;padding:0!important;border:0!important}.cup-columns>.row{margin:4px 0}.payment-money{margin-top:4px}}
+</style></head><body><header><h1>Glühweinstand <small>V6.10 iOS 10</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
+<section id="sale" class="layout"><div id="orderPane"><div class="panel"><h2 class="drinks-heading">Getränke <span id="itemCount" class="item-count"></span></h2><div id="drinks" class="drinks"></div></div><div class="panel cup-panel"><h2>Bechereinsatz <small id="depositLabel"></small></h2><div class="cup-columns"><div class="row"><div class="grow"><b>Becher ausgegeben</b><br><small id="outValue"></small></div><button class="step" id="outMinus" aria-label="Ausgegebene Becher minus">−</button><span class="num" id="out"></span><button class="step" id="outPlus" aria-label="Ausgegebene Becher plus">+</button></div><div class="row"><div class="grow"><b>Becher retour</b><br><small id="backValue"></small></div><button class="step" id="backMinus" aria-label="Retournierte Becher minus">−</button><span class="num" id="back"></span><button class="step" id="backPlus" aria-label="Retournierte Becher plus">+</button></div></div></div></div>
+<div id="paymentPane"><div class="panel"><button id="backToOrder" class="back-link">‹ Zur Bestellung</button><h2>Abrechnung</h2><div class="payment-columns"><div class="payment-summary"><div class="sum"><span>Getränke</span><b id="drinkSum"></b></div><div class="sum"><span>Bechereinsatz</span><b id="outSum"></b></div><div class="sum"><span>Pfandrückgabe</span><b id="backSum"></b></div><div class="total"><span id="totalLabel">Zu bezahlen</span><strong id="total"></strong></div></div><div class="payment-money"><div id="cashArea"><label for="cash">Geld gegeben (€)</label><input id="cash" inputmode="decimal" placeholder="0,00" autocomplete="off"><div class="cashkeys" id="cashkeys"></div><button class="wide" id="exact">Passend bezahlt</button></div><div class="change" id="changeBox"><span id="changeLabel">Retourgeld</span><strong id="change">–</strong></div></div></div><div class="payment-actions"><button class="primary wide" id="finish">Verkauf abschließen</button><button class="wide" id="discard">Bestellung löschen</button></div><div id="status" class="status" role="status"></div></div></div><div id="checkoutBar"><div><small id="checkoutLabel">Zu bezahlen</small><strong id="checkoutTotal">0,00 €</strong></div></div></section>
 <section id="stats" class="hidden"><div class="panel"><h2>Tagesstatistik</h2><label for="date">Verkaufstag</label><input type="date" id="date"><div id="metrics" class="metrics" style="margin-top:14px"></div><h3>Verkaufte Getränke</h3><div id="sales"></div><div id="cupStats" style="margin:14px 0"></div><div class="export"><button id="exportSummary" class="primary">Getränkeliste als CSV</button><button id="exportAll">Einzelne Vorgänge als CSV</button></div><p class="muted">CSV-Dateien sind mit Excel kompatibel (Semikolon, UTF-8). Bitte regelmäßig exportieren; lokale Browserdaten können gelöscht werden.</p><button id="deleteDay" type="button" class="wide" style="color:#a52626;border-color:#cfa6a6">Tagesstatistik löschen</button><div id="deleteConfirm" class="hidden"><p id="deleteQuestion"></p><button id="deleteYes" class="wide" style="background:#a52626;color:white">Endgültig löschen</button><button id="deleteNo" class="wide">Abbrechen</button></div><div id="csvFallbackBox" class="hidden"><p>CSV zum Kopieren (älterer Browser)</p><textarea id="csvFallback" readonly style="width:100%;height:180px"></textarea></div><p id="deleteDayStatus" class="status" role="status" aria-live="polite"></p></div></section>
 <section id="settings" class="hidden"><div class="panel"><h2>Getränke und Preise</h2><label for="device">Gerätename</label><input id="device" maxlength="40" placeholder="Kasse 1" style="font-size:17px"><p class="muted">Änderungen gelten für neue Bestellungen. Bechereinsatz pro Getränk ein- oder ausschalten. Bereits abgeschlossene Verkäufe bleiben unverändert.</p><div class="settings-head"><span>Getränk</span><span>Preis (€)</span><span>Bechereinsatz</span><span></span></div><div id="settingsRows"></div><button id="addProduct" class="wide add-product">+ Getränk hinzufügen</button><label for="deposit">Bechereinsatz (€)</label><input id="deposit" inputmode="decimal" style="max-width:160px"><button id="saveSettings" class="primary wide">Einstellungen speichern</button><p id="settingsStatus" class="status" role="status"></p><p class="muted">Diese App ist ein Bestell- und Abrechnungsrechner, keine Registrierkasse. Die Daten liegen ausschließlich lokal auf diesem Gerät bzw. in diesem Browserprofil.</p></div></section></main><nav><button data-tab="sale" class="active">Kasse</button><button data-tab="stats">Tagesstatistik</button><button data-tab="settings">Einstellungen</button></nav><script>
 
@@ -142,7 +182,19 @@ function connection(){$('offline').textContent=!storageOK?'Speicherfehler':cache
 connection();
 var ac=window.applicationCache;
 if(ac){cached=ac.status===1||ac.status===4;['cached','noupdate'].forEach(function(e){ac.addEventListener(e,function(){cached=true;cacheError=false;connection();});});ac.addEventListener('updateready',function(){try{ac.swapCache();cached=true;connection();}catch(e){} });ac.addEventListener('error',function(){cacheError=true;connection();});}else{cacheError=true;}
-render();connection();
+function installFastTouch(){
+var tracked=null,lastButton=null,lastAt=0;
+function buttonAt(n){while(n&&n!==$('sale')){if(n.tagName&&n.tagName.toUpperCase()==='BUTTON')return n;n=n.parentNode;}return null;}
+function point(e){return e.changedTouches&&e.changedTouches.length?e.changedTouches[0]:null;}
+var sale=$('sale');
+sale.addEventListener('touchstart',function(e){var b=buttonAt(e.target),p=point(e);tracked=b&&p&&!b.disabled&&e.touches.length===1?{b:b,x:p.clientX,y:p.clientY,id:p.identifier}:null;},false);
+sale.addEventListener('touchmove',function(e){if(!tracked)return;var p=point(e);if(!p||p.identifier!==tracked.id||Math.abs(p.clientX-tracked.x)>10||Math.abs(p.clientY-tracked.y)>10||e.touches.length!==1)tracked=null;},false);
+sale.addEventListener('touchcancel',function(){tracked=null;},false);
+sale.addEventListener('touchend',function(e){var t=tracked,p=point(e);tracked=null;if(!t||!p||p.identifier!==t.id||buttonAt(e.target)!==t.b||t.b.disabled||Math.abs(p.clientX-t.x)>10||Math.abs(p.clientY-t.y)>10||!e.cancelable)return;
+e.preventDefault();lastButton=t.b;lastAt=new Date().getTime();if(document.activeElement===$('cash'))$('cash').blur();if(typeof t.b.onclick==='function')t.b.onclick.call(t.b,e);},false);
+sale.addEventListener('click',function(e){var b=buttonAt(e.target);if(b&&b===lastButton&&new Date().getTime()-lastAt<500){e.preventDefault();e.stopPropagation();}},true);
+}
+render();connection();installFastTouch();
 }());
 
 </script></body></html>
