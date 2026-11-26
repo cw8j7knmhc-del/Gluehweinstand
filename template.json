@@ -47,13 +47,16 @@
       "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
       "name": "Berliner Luft",
       "price": 250,
-      "hasDeposit": false
-    },
-    {
-      "id": "g-1795673852868-0tfwjszzqpvn-5vkgqqksq4",
-      "name": "Berliner Luft 10+1",
-      "price": 1250,
-      "hasDeposit": false
+      "hasDeposit": false,
+      "actions": [
+        {
+          "id": "a-legacy-10plus1",
+          "name": "10+1 Aktion",
+          "units": 11,
+          "price": 1250,
+          "cups": 0
+        }
+      ]
     }
   ],
   "deposit": 500
