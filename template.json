@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "products": [
+    {
+      "id": "g1",
+      "name": "Glühwein",
+      "price": 400,
+      "hasDeposit": true
+    },
+    {
+      "id": "g2",
+      "name": "Beerenpunsch",
+      "price": 400,
+      "hasDeposit": true
+    },
+    {
+      "id": "g3",
+      "name": "Kinderpunsch",
+      "price": 300,
+      "hasDeposit": true
+    },
+    {
+      "id": "g4",
+      "name": "Eierlikörpunsch",
+      "price": 450,
+      "hasDeposit": true
+    },
+    {
+      "id": "g5",
+      "name": "Hot Aperol",
+      "price": 450,
+      "hasDeposit": true
+    },
+    {
+      "id": "g6",
+      "name": "Bier",
+      "price": 300,
+      "hasDeposit": false
+    }
+  ],
+  "deposit": 500
+}
