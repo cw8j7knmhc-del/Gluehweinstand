@@ -36,6 +36,24 @@
       "name": "Bier",
       "price": 300,
       "hasDeposit": false
+    },
+    {
+      "id": "g-1795673829314-f7u9apshfhs-ouwdopihoh",
+      "name": "Bacardi Cola",
+      "price": 350,
+      "hasDeposit": false
+    },
+    {
+      "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
+      "name": "Berliner Luft",
+      "price": 250,
+      "hasDeposit": false
+    },
+    {
+      "id": "g-1795673852868-0tfwjszzqpvn-5vkgqqksq4",
+      "name": "Berliner Luft 10+1",
+      "price": 1250,
+      "hasDeposit": false
     }
   ],
   "deposit": 500
