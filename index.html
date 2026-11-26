@@ -39,7 +39,47 @@ nav button{margin:0 3px}.row .step{margin:0 4px}.row .grow{flex:1}
 @media(max-width:767px){#checkoutBar{display:flex!important;justify-content:center;text-align:center;bottom:64px;padding:7px 12px}main{padding-bottom:170px}.layout{display:block}.drink-tile{width:calc(50% - 8px)}}
 @media(min-width:601px) and (max-width:767px){.drink-tile{width:calc(33.333% - 8px)}}
 @media(max-width:767px){#paymentPane{display:block!important}#orderPane{display:block!important}}
-</style></head><body><header><h1>Glühweinstand <small>V6.13</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
+/* V6.14: modern desktop/tablet layout. Legacy iOS 10 files are separate. */
+@media(min-width:768px){
+ body{width:100%;max-width:none;margin:0}
+ header{width:100%;padding:9px max(16px,calc((100% - 1568px)/2))}
+ main{width:100%;max-width:1600px;margin:0 auto;padding:12px 16px calc(80px + env(safe-area-inset-bottom))}
+ nav{width:100%;padding:8px max(16px,calc((100% - 1568px)/2)) calc(8px + env(safe-area-inset-bottom));gap:8px}
+ nav button{margin:0}
+ #sale.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+ #sale>#orderPane,#sale>#paymentPane{width:auto;min-width:0;padding:0}
+ #sale .drinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+ #sale .drink-tile{display:grid;grid-template-rows:1fr auto;width:auto;min-width:0;margin:0}
+ #sale .drink{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:66px;gap:2px;padding:7px 10px}
+ #sale .drink strong{font-size:16px;line-height:1.15;overflow-wrap:anywhere;white-space:normal}
+ #sale .drink-controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;padding:0}
+ #sale .drink-controls button{width:44px;height:44px;min-height:44px}
+ #sale .drink-controls .num{font-size:22px}
+ #sale .panel{padding:10px;margin-bottom:10px}
+ #sale h2{margin-bottom:8px}
+ #sale .row{padding:4px 0}
+ #sale .row .step{min-height:44px}
+ #paymentPane .cashkeys{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+ #paymentPane .cashkeys button{min-width:0;margin:0}
+}
+@media(min-width:1000px){
+ #sale.layout{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px}
+ #sale>#paymentPane{position:sticky;top:12px}
+ #sale .drink strong{font-size:17px}
+}
+@media(min-width:1000px) and (max-height:820px){
+ main{padding-top:8px}
+ #sale .panel{padding:8px 10px;margin-bottom:7px}
+ #sale .drink{min-height:58px;padding:5px 9px}
+ #sale .drink-controls button{min-height:40px;height:40px}
+ #sale .row{padding:2px 0}
+ #sale .row .step{min-height:40px}
+ #paymentPane .sum{margin:3px 0}
+ #paymentPane .total,#paymentPane .change{padding:8px 10px;margin:6px 0}
+ #paymentPane .wide,#paymentPane .cashkeys button,#paymentPane #cash{min-height:43px}
+ #paymentPane .primary.wide{min-height:48px}
+}
+</style></head><body><header><h1>Glühweinstand <small>V6.14</small></h1><span class="pill" id="offline">Offline-Status</span></header><main>
 <section id="sale" class="layout"><div id="orderPane"><div class="panel"><h2 class="drinks-heading">Getränke <span id="itemCount" class="item-count"></span></h2><div id="drinks" class="drinks"></div></div><div class="panel"><h2>Bechereinsatz <small id="depositLabel"></small></h2><div class="row"><div class="grow"><b>Becher ausgegeben</b><br><small id="outValue"></small></div><button class="step" id="outMinus" aria-label="Ausgegebene Becher minus">−</button><span class="num" id="out"></span><button class="step" id="outPlus" aria-label="Ausgegebene Becher plus">+</button></div><div class="row"><div class="grow"><b>Becher retour</b><br><small id="backValue"></small></div><button class="step" id="backMinus" aria-label="Retournierte Becher minus">−</button><span class="num" id="back"></span><button class="step" id="backPlus" aria-label="Retournierte Becher plus">+</button></div></div></div>
 <div id="paymentPane"><div class="panel"><button id="backToOrder" class="back-link">‹ Zur Bestellung</button><h2>Abrechnung</h2><div class="sum"><span>Getränke</span><b id="drinkSum"></b></div><div class="sum"><span>Bechereinsatz</span><b id="outSum"></b></div><div class="sum"><span>Pfandrückgabe</span><b id="backSum"></b></div><div class="total"><span id="totalLabel">Zu bezahlen</span><strong id="total"></strong></div><div id="cashArea"><label for="cash">Geld gegeben (€)</label><input id="cash" inputmode="decimal" placeholder="0,00" autocomplete="off"><div class="cashkeys" id="cashkeys"></div><button class="wide" id="exact">Passend bezahlt</button></div><div class="change" id="changeBox"><span id="changeLabel">Retourgeld</span><strong id="change">–</strong></div><button class="primary wide" id="finish">Verkauf abschließen</button><button class="wide" id="discard">Bestellung löschen</button><div id="status" class="status" role="status"></div></div></div><div id="checkoutBar"><div><small id="checkoutLabel">Zu bezahlen</small><strong id="checkoutTotal">0,00 €</strong></div></div></section>
 <section id="stats" class="hidden"><div class="panel"><h2>Tagesstatistik</h2><label for="date">Verkaufstag</label><input type="date" id="date"><div id="metrics" class="metrics" style="margin-top:14px"></div><h3>Verkaufte Getränke</h3><div id="sales"></div><div id="cupStats" style="margin:14px 0"></div><div class="export"><button id="exportSummary" class="primary">Getränkeliste als CSV</button><button id="exportAll">Einzelne Vorgänge als CSV</button></div><p class="muted">CSV-Dateien sind mit Excel kompatibel (Semikolon, UTF-8). Bitte regelmäßig exportieren; lokale Browserdaten können gelöscht werden.</p><button id="deleteDay" type="button" class="wide" style="color:#a52626;border-color:#cfa6a6">Tagesstatistik löschen</button><div id="deleteConfirm" class="hidden"><p id="deleteQuestion"></p><button id="deleteYes" class="wide" style="background:#a52626;color:white">Endgültig löschen</button><button id="deleteNo" class="wide">Abbrechen</button></div><div id="csvFallbackBox" class="hidden"><p>CSV zum Kopieren (älterer Browser)</p><textarea id="csvFallback" readonly style="width:100%;height:180px"></textarea></div><p id="deleteDayStatus" class="status" role="status" aria-live="polite"></p></div></section>
