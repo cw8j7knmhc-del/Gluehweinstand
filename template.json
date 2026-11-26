@@ -55,7 +55,15 @@
       "price": 350,
       "hasDeposit": false,
       "color": "#414141",
-      "actions": []
+      "actions": [
+        {
+          "id": "a-1795685328707-vr93pmiy0gc-gprxpj7e4ev",
+          "name": "10+1",
+          "units": 11,
+          "price": 3500,
+          "cups": 0
+        }
+      ]
     },
     {
       "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
