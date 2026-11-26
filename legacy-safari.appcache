@@ -1,7 +1,8 @@
 CACHE MANIFEST
-# legacy 6.29.0
+# legacy 6.30.0
 CACHE:
 legacy-safari.html
 icon.svg
+apple-touch-icon.png
 NETWORK:
 *
