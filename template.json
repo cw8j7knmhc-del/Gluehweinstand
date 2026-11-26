@@ -96,6 +96,14 @@
           "cups": 0
         }
       ]
+    },
+    {
+      "id": "g-1795697336120-b4se6a4l55q-sfw9495hccf",
+      "name": "Schnaps / Likör",
+      "price": 250,
+      "hasDeposit": false,
+      "color": "#852f3b",
+      "actions": []
     }
   ],
   "deposit": 500
