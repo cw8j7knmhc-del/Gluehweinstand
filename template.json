@@ -5,43 +5,50 @@
       "id": "g1",
       "name": "Glühwein",
       "price": 400,
-      "hasDeposit": true
+      "hasDeposit": true,
+      "color": "#852f3b"
     },
     {
       "id": "g2",
       "name": "Beerenpunsch",
       "price": 400,
-      "hasDeposit": true
+      "hasDeposit": true,
+      "color": "#743b8e"
     },
     {
       "id": "g3",
       "name": "Kinderpunsch",
       "price": 300,
-      "hasDeposit": true
+      "hasDeposit": true,
+      "color": "#286b48"
     },
     {
       "id": "g4",
       "name": "Eierlikörpunsch",
       "price": 450,
-      "hasDeposit": true
+      "hasDeposit": true,
+      "color": "#95701d"
     },
     {
       "id": "g5",
       "name": "Hot Aperol",
       "price": 450,
-      "hasDeposit": true
+      "hasDeposit": true,
+      "color": "#bf531c"
     },
     {
       "id": "g6",
       "name": "Bier",
       "price": 300,
-      "hasDeposit": false
+      "hasDeposit": false,
+      "color": "#786028"
     },
     {
       "id": "g-1795673829314-f7u9apshfhs-ouwdopihoh",
       "name": "Bacardi Cola",
       "price": 350,
-      "hasDeposit": false
+      "hasDeposit": false,
+      "color": "#414141"
     },
     {
       "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
@@ -56,7 +63,8 @@
           "price": 1250,
           "cups": 0
         }
-      ]
+      ],
+      "color": "#28748a"
     }
   ],
   "deposit": 500
