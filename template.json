@@ -50,23 +50,15 @@
       "actions": []
     },
     {
-      "id": "g-1795673829314-f7u9apshfhs-ouwdopihoh",
+      "id": "g-1795636429443-gpytl46i00h-73sk91i80uf",
       "name": "Bacardi Cola",
       "price": 350,
       "hasDeposit": false,
       "color": "#414141",
-      "actions": [
-        {
-          "id": "a-1795685328707-vr93pmiy0gc-gprxpj7e4ev",
-          "name": "10+1",
-          "units": 11,
-          "price": 3500,
-          "cups": 0
-        }
-      ]
+      "actions": []
     },
     {
-      "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
+      "id": "g-1795636453587-d3yf1z30rq-v75nytrtmz",
       "name": "Berliner Luft",
       "price": 250,
       "hasDeposit": false,
@@ -82,23 +74,7 @@
       ]
     },
     {
-      "id": "g-1795681489569-s7wsdouj9r-ixfzgmql2o",
-      "name": "Jägermeister",
-      "price": 250,
-      "hasDeposit": false,
-      "color": "#004000",
-      "actions": [
-        {
-          "id": "a-1795681499643-ug37elgpj6j-y85gqx74k18",
-          "name": "10+1",
-          "units": 11,
-          "price": 1250,
-          "cups": 0
-        }
-      ]
-    },
-    {
-      "id": "g-1795697336120-b4se6a4l55q-sfw9495hccf",
+      "id": "g-1795710712617-lee7d06dmfp-0aq1kync46zn",
       "name": "Schnaps / Likör",
       "price": 250,
       "hasDeposit": false,
