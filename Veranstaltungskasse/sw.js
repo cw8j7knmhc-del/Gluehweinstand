@@ -1,4 +1,4 @@
-const CACHE='veranstaltungskasse-v0-4-0';const ASSETS=['./','./index.html','./mobile.html','./manifest.webmanifest','./mobile.webmanifest','./icon.svg','./core-v040.js','./tiles-v032.css','./apple-touch-icon.png'];
+const CACHE='veranstaltungskasse-v0-5-0';const ASSETS=['./','./index.html','./mobile.html','./manifest.webmanifest','./mobile.webmanifest','./icon.svg','./core-v050.js','./tiles-v032.css','./apple-touch-icon.png'];
 const scope=new URL(self.registration.scope);const desktopURL=new URL('./index.html',scope).href;const mobileURL=new URL('./mobile.html',scope).href;
 function pageKey(url){if(url.pathname===scope.pathname||url.pathname===new URL(desktopURL).pathname)return desktopURL;if(url.pathname===new URL(mobileURL).pathname)return mobileURL;return null;}
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting())));
