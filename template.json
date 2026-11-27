@@ -80,6 +80,14 @@
       "hasDeposit": false,
       "color": "#852f3b",
       "actions": []
+    },
+    {
+      "id": "g-1795756647836-xtc83bd07t9-i4a2fw1x0ie",
+      "name": "1/8 Wein",
+      "price": 250,
+      "hasDeposit": true,
+      "color": "#852f3b",
+      "actions": []
     }
   ],
   "deposit": 500
