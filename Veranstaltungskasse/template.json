@@ -138,6 +138,24 @@
       "actions": []
     },
     {
+      "id": "g-1795765662061-yl8gzamewhf-vz7bp8msly",
+      "name": "Cola / Almdudler",
+      "category": "Getränke",
+      "price": 200,
+      "hasDeposit": false,
+      "color": "#a3472d",
+      "actions": []
+    },
+    {
+      "id": "g-1795765685654-dhuppy5sauk-gg3er29tumn",
+      "name": "Mineral",
+      "category": "Getränke",
+      "price": 150,
+      "hasDeposit": false,
+      "color": "#347da4",
+      "actions": []
+    },
+    {
       "id": "g-1795764060146-vywntyrki1f-xhcdhv2olci",
       "name": "FF Schinken Rahm",
       "category": "Speisen",
@@ -172,24 +190,6 @@
       "hasDeposit": false,
       "color": "#95502a",
       "actions": []
-    },
-    {
-      "id": "g-1795765662061-yl8gzamewhf-vz7bp8msly",
-      "name": "Cola / Almdudler",
-      "category": "Getränke",
-      "price": 200,
-      "hasDeposit": false,
-      "color": "#852f3b",
-      "actions": []
-    },
-    {
-      "id": "g-1795765685654-dhuppy5sauk-gg3er29tumn",
-      "name": "Mineral",
-      "category": "Getränke",
-      "price": 150,
-      "hasDeposit": false,
-      "color": "#852f3b",
-      "actions": []
     }
   ],
   "deposit": 500,
@@ -209,7 +209,9 @@
         "g-1795681489569-s7wsdouj9r-ixfzgmql2o",
         "g-1795697336120-b4se6a4l55q-sfw9495hccf",
         "g-wine-125",
-        "g-1795763472208-yidipmgkwl-ao971ihsgvm"
+        "g-1795763472208-yidipmgkwl-ao971ihsgvm",
+        "g-1795765662061-yl8gzamewhf-vz7bp8msly",
+        "g-1795765685654-dhuppy5sauk-gg3er29tumn"
       ]
     },
     {
