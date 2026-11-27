@@ -1,9 +1,9 @@
 CACHE MANIFEST
-# veranstaltungskasse 0.9.0
+# veranstaltungskasse 0.9.1
 CACHE:
 legacy.html
 icon.svg
-core-v090.js
+core-v091.js
 tiles-v032.css
 apple-touch-icon.png
 NETWORK:
