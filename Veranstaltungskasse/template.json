@@ -1,9 +1,14 @@
 {
   "schema": 1,
+  "categories": [
+    "Getränke",
+    "Speisen"
+  ],
   "products": [
     {
       "id": "g1",
       "name": "Glühwein",
+      "category": "Getränke",
       "price": 400,
       "hasDeposit": true,
       "color": "#852f3b",
@@ -12,7 +17,8 @@
     {
       "id": "g2",
       "name": "Beerenpunsch",
-      "price": 400,
+      "category": "Getränke",
+      "price": 450,
       "hasDeposit": true,
       "color": "#743b8e",
       "actions": []
@@ -20,6 +26,7 @@
     {
       "id": "g3",
       "name": "Kinderpunsch",
+      "category": "Getränke",
       "price": 300,
       "hasDeposit": true,
       "color": "#286b48",
@@ -28,6 +35,7 @@
     {
       "id": "g4",
       "name": "Eierlikörpunsch",
+      "category": "Getränke",
       "price": 450,
       "hasDeposit": true,
       "color": "#95701d",
@@ -36,6 +44,7 @@
     {
       "id": "g5",
       "name": "Hot Aperol",
+      "category": "Getränke",
       "price": 450,
       "hasDeposit": true,
       "color": "#bf531c",
@@ -44,22 +53,33 @@
     {
       "id": "g6",
       "name": "Bier",
+      "category": "Getränke",
       "price": 300,
       "hasDeposit": false,
       "color": "#786028",
       "actions": []
     },
     {
-      "id": "g-1795636429443-gpytl46i00h-73sk91i80uf",
+      "id": "g-1795673829314-f7u9apshfhs-ouwdopihoh",
       "name": "Bacardi Cola",
+      "category": "Getränke",
       "price": 350,
       "hasDeposit": false,
       "color": "#414141",
-      "actions": []
+      "actions": [
+        {
+          "id": "a-1795685328707-vr93pmiy0gc-gprxpj7e4ev",
+          "name": "10+1",
+          "units": 11,
+          "price": 3500,
+          "cups": 0
+        }
+      ]
     },
     {
-      "id": "g-1795636453587-d3yf1z30rq-v75nytrtmz",
+      "id": "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
       "name": "Berliner Luft",
+      "category": "Getränke",
       "price": 250,
       "hasDeposit": false,
       "color": "#28748a",
@@ -74,21 +94,133 @@
       ]
     },
     {
-      "id": "g-1795710712617-lee7d06dmfp-0aq1kync46zn",
+      "id": "g-1795681489569-s7wsdouj9r-ixfzgmql2o",
+      "name": "Jägermeister",
+      "category": "Getränke",
+      "price": 250,
+      "hasDeposit": false,
+      "color": "#004000",
+      "actions": [
+        {
+          "id": "a-1795681499643-ug37elgpj6j-y85gqx74k18",
+          "name": "10+1",
+          "units": 11,
+          "price": 1250,
+          "cups": 0
+        }
+      ]
+    },
+    {
+      "id": "g-1795697336120-b4se6a4l55q-sfw9495hccf",
       "name": "Schnaps / Likör",
+      "category": "Getränke",
       "price": 250,
       "hasDeposit": false,
       "color": "#852f3b",
       "actions": []
     },
     {
-      "id": "g-1795756647836-xtc83bd07t9-i4a2fw1x0ie",
+      "id": "g-wine-125",
       "name": "1/8 Wein",
+      "category": "Getränke",
       "price": 250,
       "hasDeposit": true,
+      "color": "#a13b65",
+      "actions": []
+    },
+    {
+      "id": "g-1795763472208-yidipmgkwl-ao971ihsgvm",
+      "name": "Bouteille Wein",
+      "category": "Getränke",
+      "price": 1000,
+      "hasDeposit": false,
+      "color": "#68203e",
+      "actions": []
+    },
+    {
+      "id": "g-1795764060146-vywntyrki1f-xhcdhv2olci",
+      "name": "FF Schinken Rahm",
+      "category": "Speisen",
+      "price": 400,
+      "hasDeposit": false,
+      "color": "#a85464",
+      "actions": []
+    },
+    {
+      "id": "g-1795764128275-b3x5ppodtbh-ld4pwuc6ev",
+      "name": "FF Nutella",
+      "category": "Speisen",
+      "price": 450,
+      "hasDeposit": false,
+      "color": "#4f2c1e",
+      "actions": []
+    },
+    {
+      "id": "g-1795764183843-no13thpkzw9-fww0vohxmyd",
+      "name": "FF Zwiebel Schmalz",
+      "category": "Speisen",
+      "price": 400,
+      "hasDeposit": false,
+      "color": "#b49150",
+      "actions": []
+    },
+    {
+      "id": "g-1795764207932-46tgnztm9nv-c1t3v6ujux9",
+      "name": "FF Geschnetzelt",
+      "category": "Speisen",
+      "price": 600,
+      "hasDeposit": false,
+      "color": "#95502a",
+      "actions": []
+    },
+    {
+      "id": "g-1795765662061-yl8gzamewhf-vz7bp8msly",
+      "name": "Cola / Almdudler",
+      "category": "Getränke",
+      "price": 200,
+      "hasDeposit": false,
+      "color": "#852f3b",
+      "actions": []
+    },
+    {
+      "id": "g-1795765685654-dhuppy5sauk-gg3er29tumn",
+      "name": "Mineral",
+      "category": "Getränke",
+      "price": 150,
+      "hasDeposit": false,
       "color": "#852f3b",
       "actions": []
     }
   ],
-  "deposit": 500
+  "deposit": 500,
+  "profiles": [
+    {
+      "id": "u-1795763076737-av9km48jzqp-eofnfcqb5q",
+      "name": "Getränke",
+      "products": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g-1795673829314-f7u9apshfhs-ouwdopihoh",
+        "g-1795673842235-qxlxbkjlhme-4cgc86911z3",
+        "g-1795681489569-s7wsdouj9r-ixfzgmql2o",
+        "g-1795697336120-b4se6a4l55q-sfw9495hccf",
+        "g-wine-125",
+        "g-1795763472208-yidipmgkwl-ao971ihsgvm"
+      ]
+    },
+    {
+      "id": "u-1795764276977-nm86w8lmkxm-zkhlzu3y3lg",
+      "name": "Speisen",
+      "products": [
+        "g-1795764060146-vywntyrki1f-xhcdhv2olci",
+        "g-1795764128275-b3x5ppodtbh-ld4pwuc6ev",
+        "g-1795764183843-no13thpkzw9-fww0vohxmyd",
+        "g-1795764207932-46tgnztm9nv-c1t3v6ujux9"
+      ]
+    }
+  ]
 }
