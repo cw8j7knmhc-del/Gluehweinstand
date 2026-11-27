@@ -1,0 +1,331 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#752b36"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Veranstaltungskasse"><title>Veranstaltungskasse</title><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon.svg"><style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#252323;background:#f5f1ed;--red:#852f3b;--line:#e4dbd4;--green:#237047}*{box-sizing:border-box}body{margin:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation;min-height:48px;border:1px solid var(--line);border-radius:11px;background:#fff;color:inherit;font-weight:650;padding:10px 14px}button:active{transform:scale(.98)}button:disabled{opacity:.4;cursor:default}header{background:#752b36;color:white;padding:16px max(16px,calc((100% - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}h1{font-size:24px;margin:0}small{font-size:13px;color:#746a65}header small{color:#f5dce0}nav{display:flex;gap:8px;max-width:1200px;margin:14px auto;padding:0 16px}nav button{flex:1}nav button.active,.primary{background:var(--red);color:white;border-color:var(--red)}main{max-width:1200px;margin:auto;padding:0 16px 24px}.layout{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}h2{font-size:19px;margin:0 0 14px}h3{font-size:16px;margin:0 0 8px}.drinks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.drink{background:var(--red);color:#fff;border:0;text-align:left;min-height:86px;padding:14px}.drink strong{display:block;font-size:19px}.drink span{display:flex;justify-content:space-between;align-items:center;margin-top:8px}.drink b{font-size:24px}.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.grow{flex:1}.num{font-size:24px;font-weight:700;min-width:30px;text-align:center;font-variant-numeric:tabular-nums}.step{width:48px;padding:0;font-size:24px}.sum{display:flex;justify-content:space-between;gap:12px;margin:9px 0}.total,.change{padding:14px;border-radius:12px;background:#f5f1ed;margin:12px 0}.total strong,.change strong{display:block;font-size:clamp(30px,5vw,44px);font-variant-numeric:tabular-nums;line-height:1.15;margin-top:4px}.change strong{color:var(--green)}.change.bad strong{color:#a52626}input{width:100%;border:1px solid #cfc4bd;border-radius:10px;padding:12px;font-size:22px;background:white;color:inherit}label{display:block;font-weight:650;margin:8px 0}.cashkeys{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}.cashkeys button{padding:8px 2px}.wide{width:100%;margin-top:8px}.primary.wide{min-height:58px;font-size:19px}.muted{color:#746a65;font-size:14px}.status{min-height:20px;margin-top:8px;font-size:14px;color:var(--green)}.error{color:#a52626}.hidden{display:none!important}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.metric{background:#f5f1ed;padding:12px;border-radius:12px}.metric strong{display:block;font-size:26px;margin-top:6px}.export{display:flex;gap:10px;flex-wrap:wrap}.export button{flex:1}.settings-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(70px,120px) 48px;gap:10px;align-items:center;margin-bottom:10px}.settings-row input{font-size:17px;min-width:0}.settings-row .step{color:#852f3b}.settings-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(70px,120px) 48px;gap:10px;color:#746a65;font-size:14px;margin-bottom:6px}.add-product{margin:4px 0 12px;color:var(--red);border:1px dashed var(--red)}.order-name{min-width:0;overflow-wrap:anywhere}.order-row{flex-wrap:wrap}.order-row .step{flex-shrink:0}.pill{font-size:12px;padding:5px 8px;border:1px solid #ffffff70;border-radius:20px;white-space:nowrap}#date{font-size:16px;max-width:200px} @media(max-width:720px){.layout{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}h1{font-size:20px}header{padding:12px}.drink strong{font-size:17px}}@media(min-width:900px){.drinks{grid-template-columns:repeat(3,1fr)}}
+.settings-row,.settings-head{grid-template-columns:minmax(0,1fr) minmax(65px,120px) 104px 48px}.settings-row .deposit-toggle{min-height:48px;padding:8px 5px;font-size:15px;color:#746a65}.settings-row .deposit-toggle[aria-pressed="true"]{background:#e9f3ec;color:#237047;border-color:#a4c7ad}.deposit-toggle:focus-visible{outline:3px solid #852f3b;outline-offset:2px}@media(max-width:480px){.settings-row,.settings-head{grid-template-columns:minmax(0,1fr) 70px 72px 44px;gap:5px}.settings-row .step{width:44px}.settings-row input{padding:10px 6px;font-size:15px}.settings-row .deposit-toggle{font-size:13px}}
+
+/* V5: compact, touch-friendly register with persistent bottom navigation */
+:root{background:#f5f1ed}body{padding-bottom:0}header{padding:9px max(16px,calc((100% - 1168px)/2));min-height:48px}h1{font-size:21px}main{padding-top:12px;padding-bottom:calc(88px + env(safe-area-inset-bottom));max-width:1200px}.layout{gap:12px;align-items:start;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}.panel{padding:12px;margin-bottom:10px;border-radius:13px}h2{font-size:17px;margin-bottom:10px}.drinks-heading{display:flex;align-items:center;justify-content:space-between}.item-count{font-size:14px;color:#746a65;font-weight:600}.drinks{gap:8px;grid-template-columns:repeat(3,minmax(0,1fr))}.drink-tile{display:grid;grid-template-rows:1fr auto;min-width:0;background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden}.drink-tile.selected{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}.drink{width:100%;min-height:86px;padding:9px 10px;border-radius:0;text-align:left;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px}.drink strong{font-size:clamp(14px,1.45vw,18px);line-height:1.15;overflow-wrap:anywhere}.drink span.drink-price{display:block;margin:0;font-size:16px}.drink small{font-size:11px;line-height:1.2;color:#f5dce0}.drink-controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:0;padding:2px}.drink-controls button{border:0;min-height:44px;width:44px;background:transparent;color:var(--red);border-radius:8px}.drink-controls button:disabled{color:#746a65;opacity:.35}.drink-controls .num{font-size:21px;min-width:0}.row{padding:6px 0}.sum{margin:5px 0;font-size:15px}.total,.change{padding:10px 12px;margin:9px 0}.total strong,.change strong{font-size:clamp(32px,4.4vw,42px)}label{margin:6px 0}#cash{padding:9px 12px;font-size:24px;min-height:48px}.cashkeys{margin:8px 0}.wide{margin-top:6px}.primary.wide{min-height:54px}.status:empty{display:none}.status{min-height:0;margin-top:6px}#discard{font-size:14px;color:#746a65}nav{position:fixed;bottom:0;left:0;right:0;z-index:10;max-width:none;margin:0;gap:6px;padding:8px max(12px,calc((100% - 1168px)/2)) calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -3px 14px #2515170d}nav button{min-width:0;min-height:48px;padding:8px 4px;font-size:15px}nav button:not(.active){border-color:transparent;background:#f5f1ed;color:#625854}nav button.active{background:var(--red);color:#fff} @media(max-width:820px){.layout{grid-template-columns:1fr}.drinks{grid-template-columns:repeat(3,minmax(0,1fr))}.drink strong{font-size:16px}}@media(max-width:480px){main{padding-left:8px;padding-right:8px}.drinks{grid-template-columns:repeat(2,minmax(0,1fr))}nav button{font-size:13px}.drink strong{font-size:15px}.panel{padding:10px}}
+@media(min-width:821px) and (max-height:800px){header{min-height:44px;padding-top:6px;padding-bottom:6px}main{padding-top:9px}.panel{padding:10px}.drink{min-height:79px}.total,.change{margin:7px 0;padding:9px 12px}.cashkeys{margin:6px 0}.primary.wide{min-height:50px}}
+
+/* iPhone portrait preview: order and payment are separate screens. */
+ #checkoutBar,.back-link{display:none}@media(max-width:600px){:root{--nav-height:64px}body{max-width:520px;margin:auto;background:#f5f1ed}header{min-height:44px;padding:8px 12px}h1{font-size:19px}main{max-width:520px;padding:8px 10px calc(140px + env(safe-area-inset-bottom))}.layout{display:block}.panel{padding:10px;margin-bottom:8px}h2{font-size:16px;margin-bottom:7px}.drinks{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.drink{min-height:61px;padding:7px 9px;gap:2px}.drink strong{font-size:16px}.drink span.drink-price{font-size:15px}.drink small{font-size:11px}.drink-controls{padding:0;grid-template-columns:44px 1fr 44px}.drink-controls button{height:44px;min-height:44px}.drink-controls .num{font-size:22px}.row{padding:3px 0;gap:7px}.row .step{width:44px;min-height:44px}.row .grow b{font-size:14px}.row .num{font-size:22px}.row small{font-size:12px}nav{width:min(100%,520px);left:50%;right:auto;transform:translateX(-50%);padding:5px 8px calc(5px + env(safe-area-inset-bottom));gap:5px;min-height:var(--nav-height)}nav button{font-size:12px;min-height:49px;padding:6px 2px}#checkoutBar{position:fixed;z-index:9;bottom:calc(var(--nav-height) + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(100%,520px);padding:9px 12px;display:flex;align-items:center;gap:12px;justify-content:space-between;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px #25151712}#checkoutBar strong{display:block;font-size:27px;line-height:1.1;font-variant-numeric:tabular-nums}#checkoutBar button{min-height:49px;min-width:130px}#checkoutBar small{display:block;font-size:12px;margin-bottom:3px}.back-link{border:0;background:none;padding:0 4px;text-align:left;color:var(--red);margin-bottom:3px}.total strong,.change strong{font-size:40px}.settings-row input{font-size:16px}.settings-head{font-size:12px}.settings-row,.settings-head{grid-template-columns:minmax(0,1fr) 63px 69px 44px;gap:4px}.settings-row .step{width:44px}.settings-row .deposit-toggle{min-height:44px;font-size:13px}.metrics{grid-template-columns:1fr 1fr}.metric strong{font-size:21px}.metric:last-child{grid-column:span 2}.export{display:grid;grid-template-columns:1fr}#paymentPane .panel{padding:14px}#paymentPane .wide{min-height:49px}#paymentPane #cash{font-size:24px}#paymentPane .sum{margin:8px 0}#paymentPane{display:block;scroll-margin-top:12px;scroll-margin-bottom:150px}#checkoutBar{bottom:calc(59px + env(safe-area-inset-bottom))}@media(max-width:360px){.drink strong{font-size:14px}.drink{padding:7px}.settings-row,.settings-head{grid-template-columns:minmax(0,1fr) 55px 62px 44px}} .back-link{display:block}}
+@media(max-width:600px){#paymentPane .back-link{display:none}#paymentPane .panel{margin-bottom:16px}main{padding-bottom:calc(160px + env(safe-area-inset-bottom))}#sale:not(.hidden) #paymentPane{display:block}#sale:not(.hidden) #orderPane{display:block}}
+@media(max-width:600px){#checkoutBar{justify-content:center;text-align:center;padding:7px 12px}#checkoutBar strong{font-size:27px}}
+
+/* Legacy Safari: explicit colors and flex layout; no CSS Grid required. */
+body{background:#f5f1ed;color:#252323;font-family:-apple-system,Arial,sans-serif}
+button{border-color:#e4dbd4}button:disabled{opacity:.4}
+.drink,.primary,nav button.active{background:#852f3b;color:#fff;border-color:#852f3b}
+.panel,.drink-tile,.row,nav{border-color:#e4dbd4}
+.drink-tile.selected{border-color:#852f3b}
+.drink-controls button{color:#852f3b}.change strong{color:#237047}
+#checkoutBar,.back-link{display:none!important}
+main{padding-bottom:100px}
+.layout{display:block}
+.drinks{display:flex;flex-wrap:wrap;margin:-4px}
+.drink-tile{display:block;width:calc(50% - 8px);margin:4px}
+.drink{display:block;min-height:64px}.drink strong{font-size:16px}.drink span.drink-price{display:block}
+.drink-controls{display:flex;align-items:center;justify-content:space-between}
+.drink-controls .num{flex:1}
+.cashkeys{display:flex}.cashkeys button{flex:1;margin-right:4px}
+.metrics{display:flex;flex-wrap:wrap}.metric{flex:1;margin:4px;min-width:120px}
+.settings-row,.settings-head{display:flex;align-items:center}
+.settings-row input:first-child,.settings-head span:first-child{flex:1;width:0}
+.settings-row input:nth-child(2),.settings-head span:nth-child(2){width:70px;flex:none;margin-left:5px}
+.settings-row .deposit-toggle,.settings-head span:nth-child(3){width:90px;flex:none;margin-left:5px}
+.settings-row .step,.settings-head span:nth-child(4){width:44px;flex:none;margin-left:5px}
+nav button{margin:0 3px}.row .step{margin:0 4px}.row .grow{flex:1}
+.total strong,.change strong{font-size:34px}.status{color:#237047}
+@media(min-width:768px){body,main{max-width:1200px}.layout{display:flex;align-items:flex-start}.layout>#orderPane{width:54%;padding-right:6px}.layout>#paymentPane{width:46%;padding-left:6px}.drink-tile{width:calc(33.333% - 8px)}.drink{min-height:76px}.drink strong{font-size:15px}.drink-controls button{width:40px;min-height:44px}.drink-controls .num{font-size:20px}.panel{padding:10px}.total strong,.change strong{font-size:36px}}
+@media(max-width:767px){#checkoutBar{display:flex!important;justify-content:center;text-align:center;bottom:64px;padding:7px 12px}main{padding-bottom:170px}.layout{display:block}.drink-tile{width:calc(50% - 8px)}}
+@media(min-width:601px) and (max-width:767px){.drink-tile{width:calc(33.333% - 8px)}}
+@media(max-width:767px){#paymentPane{display:block!important}#orderPane{display:block!important}}
+/* V6.14: modern desktop/tablet layout. Legacy iOS 10 files are separate. */
+@media(min-width:768px){
+ body{width:100%;max-width:none;margin:0}
+ header{width:100%;padding:9px max(16px,calc((100% - 1568px)/2))}
+ main{width:100%;max-width:1600px;margin:0 auto;padding:12px 16px calc(80px + env(safe-area-inset-bottom))}
+ nav{width:100%;padding:8px max(16px,calc((100% - 1568px)/2)) calc(8px + env(safe-area-inset-bottom));gap:8px}
+ nav button{margin:0}
+ #sale.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+ #sale>#orderPane,#sale>#paymentPane{width:auto;min-width:0;padding:0}
+ #sale .drinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+ #sale .drink-tile{display:grid;grid-template-rows:1fr auto;width:auto;min-width:0;margin:0}
+ #sale .drink{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:66px;gap:2px;padding:7px 10px}
+ #sale .drink strong{font-size:16px;line-height:1.15;overflow-wrap:anywhere;white-space:normal}
+ #sale .drink-controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;padding:0}
+ #sale .drink-controls button{width:44px;height:44px;min-height:44px}
+ #sale .drink-controls .num{font-size:22px}
+ #sale .panel{padding:10px;margin-bottom:10px}
+ #sale h2{margin-bottom:8px}
+ #sale .row{padding:4px 0}
+ #sale .row .step{min-height:44px}
+ #paymentPane .cashkeys{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+ #paymentPane .cashkeys button{min-width:0;margin:0}
+}
+@media(min-width:1000px){
+ #sale.layout{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px}
+ #sale>#paymentPane{position:sticky;top:12px}
+ #sale .drink strong{font-size:17px}
+}
+@media(min-width:1000px) and (max-height:820px){
+ main{padding-top:8px}
+ #sale .panel{padding:8px 10px;margin-bottom:7px}
+ #sale .drink{min-height:58px;padding:5px 9px}
+ #sale .drink-controls button{min-height:40px;height:40px}
+ #sale .row{padding:2px 0}
+ #sale .row .step{min-height:40px}
+ #paymentPane .sum{margin:3px 0}
+ #paymentPane .total,#paymentPane .change{padding:8px 10px;margin:6px 0}
+ #paymentPane .wide,#paymentPane .cashkeys button,#paymentPane #cash{min-height:43px}
+ #paymentPane .primary.wide{min-height:48px}
+}
+/* V6.15: custom colors, reorder, ranking. */
+.settings-row{display:block!important;border:1px solid #e4dbd4;border-radius:10px;padding:7px;margin-bottom:8px}
+.settings-main{display:flex;align-items:center;width:100%;gap:5px}
+.settings-main input:first-child{flex:1;min-width:0;width:0}
+.settings-main input:nth-child(2){width:78px;flex:none;margin-left:4px}
+.settings-main .deposit-toggle{width:82px;flex:none;margin-left:4px}
+.settings-main .step{width:42px;flex:none;margin-left:4px}
+.settings-tools{display:flex;align-items:center;margin-top:5px}
+.settings-tools button{min-height:40px;margin-right:5px;padding:4px 9px}
+.settings-tools .color-button{flex:1;margin-right:0}
+.color-editor{padding:6px 0}.color-editor input[type=color]{width:75px;height:44px;padding:3px;margin-right:5px}.color-editor input[aria-label="Hex-Farbcode"]{width:130px;font-size:16px;padding:8px}
+.rgb-line{display:flex;align-items:center;font-size:13px}.rgb-line span{width:48px}.rgb-line input{flex:1;min-width:0;padding:0;width:auto;margin:0 8px;height:30px}
+#rankBy{font:inherit;padding:8px;background:white;border:1px solid #e4dbd4;border-radius:8px;width:100%;max-width:280px}
+.rank-item{margin:9px 0}.rank-line{display:flex;align-items:center;gap:8px;font-size:14px}.rank-line .grow{flex:1}.rank-track{height:7px;background:#eee4df;border-radius:5px;margin-top:4px;overflow:hidden}.rank-fill{height:7px;background:#852f3b;border-radius:5px}
+@media(max-width:480px){.settings-main input:nth-child(2){width:65px}.settings-main .deposit-toggle{width:68px}.settings-main .step{width:38px}.settings-main input{font-size:14px;padding:7px 4px}.settings-main .deposit-toggle{font-size:12px}.settings-head{display:none}}
+/* V6.16 action menu */
+.drink-tile{position:relative}.drink-tile.has-actions .drink{padding-right:37px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.action-more{position:absolute;right:4px;top:4px;min-width:30px;min-height:30px;height:30px;padding:0 5px;background:#ffffffed;color:#252323;border:1px solid #ffffff;border-radius:7px;font-size:20px;line-height:1;z-index:1}
+.action-overlay{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(33,21,27,.72);display:flex;align-items:center;justify-content:center;z-index:100;padding:14px}.action-modal{background:white;border-radius:14px;padding:18px;width:100%;max-width:390px;max-height:90%;overflow:auto;color:#252323}.action-modal .wide{min-height:48px}.action-modal p{margin:4px 0 8px}.action-line{display:flex;align-items:center;gap:6px;background:#f5f1ed;border-radius:8px;margin:4px 0;padding:5px 8px;font-size:13px}.action-line .step{min-width:38px;width:38px;min-height:38px;margin-left:6px}.action-line .grow{flex:1}.action-editor{padding:5px 0}.action-setting{border:1px solid #e4dbd4;border-radius:8px;margin:6px 0;padding:8px}.action-field{display:flex;align-items:center;font-size:13px}.action-field span{width:42%;min-width:100px}.action-field input{flex:1;min-width:0;font-size:16px;padding:6px}.settings-tools .action-edit-button{margin-left:5px;margin-right:0;font-size:13px}.settings-tools .color-button{min-width:0;font-size:13px}.action-modal .muted{font-size:13px}
+/* V6.17: wider promotion fields, discreet action and undo icons. */
+#settings .action-setting .action-field{display:flex;align-items:center;width:100%;margin:5px 0;gap:8px}
+#settings .action-setting .action-field>span{width:34%;min-width:104px;max-width:200px;flex:none}
+#settings .action-setting .action-field>input{width:100%;min-width:0;max-width:none;flex:1 1 0%;margin:0 0 0 6px;padding:8px;font-size:16px}
+#settings .action-setting .action-field:not(:first-child)>input{max-width:160px}
+#settings .action-setting .action-field:first-child>input{max-width:none}
+#sale .drink-tile.has-actions .drink{padding-right:25px}
+#sale .action-more{top:0;right:0;width:28px;min-width:28px;height:31px;min-height:31px;padding:0;border:0;border-radius:5px;background:transparent;font-size:16px;font-weight:700;line-height:1;opacity:.9}
+#sale .action-more:focus{outline:1px solid currentColor;outline-offset:-3px}
+#paymentPane .payment-heading{display:flex;align-items:center;justify-content:space-between;min-height:34px;margin:0 0 5px}
+#paymentPane .payment-heading h2{margin:0}
+#paymentPane .undo-small{display:flex;align-items:center;justify-content:center;width:34px;min-width:34px;height:34px;min-height:34px;padding:0;margin:0;background:transparent;color:#746a65;border:1px solid #e4dbd4;border-radius:8px}
+#paymentPane .undo-small:disabled{opacity:.28}
+#paymentPane .undo-small svg{pointer-events:none;display:block}
+@media(max-width:480px){#settings .action-setting .action-field>span{width:38%;min-width:95px}#settings .action-setting .action-field>input{margin-left:3px}}
+/* V6.18 */
+#settings .settings-main{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+#settings .settings-main>input:first-child{flex:1 1 90px;width:0;min-width:65px}
+#settings .settings-main>input:nth-child(2){width:70px;flex:none;margin:0}
+#settings .settings-main>.deposit-toggle{width:70px;min-width:55px;margin:0;font-size:13px}
+#settings .settings-main>button:not(.deposit-toggle){width:34px;min-width:30px;min-height:40px;padding:0;margin:0;font-size:17px;flex:none}
+#settings .settings-main>.step{color:#a52626}
+#settings .settings-extra{padding-top:6px}
+#settings .settings-tools{margin:0 0 5px}
+#settings .settings-tools button{flex:1}
+#settings .sold-label{display:flex;align-items:center;font-size:14px;gap:7px}
+#settings .sold-label input,.pref-check input{width:22px;height:22px;min-height:0;flex:none;margin:0 8px 0 0}
+#sale .sold-out .drink{background:#777!important;color:#fff!important}
+#sale .sold-out .drink small{color:#fff!important}
+#sale .sold-out .drink:disabled{opacity:.75}
+#sale .sold-out .action-more{display:none}
+#paymentPane .heading-tools{display:flex;align-items:center;gap:4px}
+#paymentPane .mini-tool,.mini-tool{min-width:34px;width:auto;height:34px;min-height:34px;padding:0 7px;background:transparent;color:#746a65;border:1px solid #e4dbd4;border-radius:8px;font-size:17px;line-height:1}
+#paymentPane .mini-tool:disabled{opacity:.28}
+#basketToggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:0;border:0;background:transparent;text-align:left;min-height:26px;height:auto;font-size:inherit;font-weight:normal;color:inherit}
+#basketDetails,.recent-detail{padding:5px 8px;background:#f5f1ed;border-radius:7px;font-size:13px}
+#basketDetails .sum,.recent-detail .sum{gap:6px}
+.cash-extra{display:flex;gap:5px}
+.cash-extra button{flex:1;min-width:0;margin:4px 0 0!important}
+.park-entry{display:flex;align-items:center;gap:7px;padding:7px 0;border-bottom:1px solid #e4dbd4}
+.park-entry .grow{flex:1}.park-entry small{display:block;margin-top:3px}
+.pref-check{display:flex;align-items:center;font-size:15px}.pref-group{border-top:1px solid #e4dbd4;margin-top:12px;padding-top:12px}
+#testBanner{background:#e6c16a;color:#493400;padding:5px 10px;text-align:center;font-weight:bold;font-size:14px}
+#testBanner button{min-height:30px;padding:3px 8px;margin-left:10px;font-size:13px}
+body.night-mode,body.night-mode main{background:#18181b;color:#f1eeeb}
+body.night-mode .panel,body.night-mode .drink-tile,body.night-mode nav,body.night-mode .action-modal{background:#27272a;color:#f1eeeb;border-color:#4c4c50}
+body.night-mode .total,body.night-mode .change,body.night-mode .metric,body.night-mode #basketDetails,body.night-mode .recent-detail,body.night-mode .action-line,body.night-mode #checkoutBar{background:#36363a;color:#f1eeeb;border-color:#525257}
+body.night-mode button:not(.drink):not(.primary):not(.action-more):not(.color-button),body.night-mode input,body.night-mode select,body.night-mode textarea{background:#303034;color:#f1eeeb;border-color:#57575d}
+body.night-mode nav button.active{background:#852f3b!important;color:white}
+body.night-mode .muted,body.night-mode small,body.night-mode .item-count{color:#c5c2c0}
+body.night-mode .change strong,body.night-mode .status{color:#83d9a5}
+body.night-mode .change.bad strong,body.night-mode .error{color:#ff9e9e}
+body.night-mode .row,body.night-mode .settings-row,body.night-mode .action-setting,body.night-mode .pref-group,body.night-mode .park-entry{border-color:#515157}
+@media(max-width:520px){#settings .settings-main{flex-wrap:wrap}#settings .settings-main>input:first-child{flex:1 1 105px}#settings .settings-main>input:nth-child(2){width:62px}#settings .settings-main>.deposit-toggle{width:57px}#settings .settings-main>button:not(.deposit-toggle){width:31px;min-width:31px}}
+/* V6.19 */
+#settings .settings-extra .delete-product{display:block;width:100%;min-height:36px;margin:7px 0 0;padding:5px 10px;font-size:14px;color:#a52626;border-color:#cfa6a6;background:transparent}
+#settings .settings-main .product-name-input{font-weight:650}
+#settings .settings-main .product-name-input::placeholder{color:inherit;opacity:.7}
+#basketDetails{background:transparent;padding:2px 0 7px;margin-bottom:5px;border-bottom:1px solid #e4dbd4;border-radius:0}
+#basketDetails p{margin:2px 0}
+#basketDetails .basket-row,.park-items .basket-row{align-items:center;margin:4px 0;font-size:14px;gap:6px}
+.basket-row .grow{flex:1;min-width:0;overflow-wrap:break-word}.basket-row b{white-space:nowrap}
+#paymentPane .basket-minus{width:29px;min-width:29px;height:29px;min-height:29px;padding:0;margin:0 0 0 3px;font-size:17px}
+#parkPanel h2{margin:0 0 6px}#parkInfo:empty{display:none}
+.park-card{border:1px solid #e4dbd4;border-radius:9px;padding:9px;margin:7px 0}
+.park-head,.park-foot{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.park-head small{white-space:nowrap}.park-items{margin:5px 0}.park-items>small{display:block;margin:3px 0}.park-total{flex:1;font-size:19px}
+#sale>#paymentPane.has-parked{position:static}
+html.night-mode{background:#18181b!important;color:#f1eeeb;color-scheme:dark}
+body.night-mode{background:#18181b!important;color:#f1eeeb!important;min-height:100vh}
+body.night-mode header{background:#54262e;color:#fff}
+body.night-mode #settings .settings-main .deposit-toggle[aria-pressed="true"]{background:#214737;color:#b1ebc9;border-color:#56826a}
+body.night-mode #settings .settings-extra .delete-product{background:transparent;color:#ff9e9e;border-color:#87535a}
+body.night-mode #basketDetails{background:transparent;border-color:#515157}
+body.night-mode .park-card{background:#303034;color:#f1eeeb;border-color:#515157}
+body.night-mode #rankBy{background:#303034;color:#f1eeeb;border-color:#57575d}
+body.night-mode #discard,body.night-mode .undo-small,body.night-mode .mini-tool,body.night-mode .settings-head{color:#e1ddda}
+body.night-mode .drink-controls button:disabled{color:#a4a1a0}body.night-mode .rank-track{background:#4a4a4f}
+body.night-mode .sum,body.night-mode label{color:inherit}
+/* V6.22: optional tip calculator */
+.tip-heading{display:flex;align-items:center;justify-content:space-between;gap:6px}
+#paymentPane .tip-toggle{min-height:32px;height:32px;padding:3px 9px;margin:0;font-size:13px;border-radius:7px;background:transparent}
+#tipRow{align-items:center;gap:6px}#tipRow>span{flex:1}
+#tipPanel{border-top:1px solid #d8cec8;margin-top:10px;padding-top:8px}
+.tip-modes,.tip-quick{display:flex;margin:4px 0;gap:4px}
+.tip-modes button,.tip-quick button{flex:1;min-width:0;min-height:42px;padding:5px 4px;font-size:14px;margin:0 2px 0 0}
+.tip-modes button[aria-pressed="true"]{background:#852f3b;color:#fff;border-color:#852f3b}
+#tipInput{font-size:17px;padding:9px;min-height:42px}
+#tipPanel .wide{font-size:14px;min-height:42px}
+body.night-mode #tipPanel{border-color:#515157}
+body.night-mode .tip-modes button[aria-pressed="true"]{background:#852f3b;color:#fff}
+@media(max-width:767px){
+/* V6.24: explicit grid sizing without legacy flex widths or margins. */
+#sale .drinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;width:100%}
+#sale .drink-tile{display:grid;grid-template-rows:1fr auto;width:auto;min-width:0;margin:0}
+#sale .drink{width:100%;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+#sale .drink strong{max-width:100%;overflow-wrap:break-word;white-space:normal}
+#sale .drink-controls{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;padding:0}
+#sale .drink-controls button{width:44px;min-width:44px;min-height:44px;height:44px;margin:0}
+#sale .drink-controls .num{min-width:0;text-align:center}
+}
+@media(min-width:601px) and (max-width:767px){#sale .drinks{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* V6.24: embedded, single-drink illustrations; no extra network requests. */
+#sale .drink.pictured{position:relative;min-height:84px;padding-left:68px;padding-right:6px;box-sizing:border-box;text-align:left}
+#sale .drink-tile.has-actions .drink.pictured{padding-right:21px}
+#sale .drink-picture{display:block;position:absolute;left:4px;top:50%;width:61px;height:72px;margin:0;transform:translateY(-50%);pointer-events:none;-webkit-user-select:none;user-select:none}
+#sale .drink.pictured strong{display:block;max-width:100%;font-size:15px;line-height:1.13;white-space:normal;overflow-wrap:break-word;word-wrap:break-word}
+#sale .drink.pictured .drink-price{display:block;margin:2px 0 0;font-size:15px;line-height:1.15}
+#sale .drink.pictured small{display:block;font-size:10px;line-height:1.2;margin:2px 0 0;white-space:normal}
+#sale .sold-out .drink-picture{opacity:.42;filter:grayscale(1)}
+@media(min-width:1000px){#sale .drink.pictured{padding-left:82px;min-height:88px}#sale .drink-picture{width:72px;height:76px;left:5px}#sale .drink.pictured strong{font-size:16px}}
+@media(max-width:600px){#sale .drink.pictured,body.mobile-layout #sale .drink.pictured{min-height:90px;padding-left:56px;padding-right:5px}#sale .drink-tile.has-actions .drink.pictured,body.mobile-layout #sale .drink-tile.has-actions .drink.pictured{padding-right:19px}#sale .drink-picture{width:51px;height:65px;left:2px}#sale .drink.pictured strong,body.mobile-layout #sale .drink.pictured strong{font-size:14px}#sale .drink.pictured .drink-price,body.mobile-layout #sale .drink.pictured .drink-price{font-size:14px}#sale .drink.pictured small{font-size:10px}}
+@media(max-width:360px){#sale .drink.pictured,body.mobile-layout #sale .drink.pictured{padding-left:47px}#sale .drink-picture{width:43px;height:57px}#sale .drink.pictured strong,body.mobile-layout #sale .drink.pictured strong{font-size:13px}}
+
+/* V6.26: stress-resistant visual hierarchy, no audio or vibration. */
+.ui-icon{display:inline-block;vertical-align:middle;flex:none;pointer-events:none}
+#sale .drink-tile.selected{border-color:#2c995d!important;box-shadow:inset 0 0 0 2px #2c995d}
+#sale .drink-tile.selected .drink-controls{background:#d8f0df;color:#164d31}
+#sale .drink-tile.selected .drink-controls button{color:#17613a;background:transparent}
+#sale .drink-tile .drink-controls .num{font-size:25px;font-weight:800;font-variant-numeric:tabular-nums}
+#sale .drink-tile.selected .num{color:#15542f}
+body.night-mode #sale .drink-tile.selected{border-color:#70d99a!important;box-shadow:inset 0 0 0 2px #70d99a}
+body.night-mode #sale .drink-tile.selected .drink-controls{background:#214732;color:#b8e5c8}
+body.night-mode #sale .drink-tile.selected .drink-controls .num,body.night-mode #sale .drink-tile.selected .drink-controls button{color:#b8e5c8;background:transparent}
+#sale .drink-tile:not(.selected) .num{color:#77716d}
+body.night-mode #sale .drink-tile:not(.selected) .num{color:#a6a3a1}
+#paymentPane .heading-tools{display:flex;align-items:center;gap:5px}
+#paymentPane .heading-tools .undo-small,#paymentPane .heading-tools .mini-tool{display:flex;align-items:center;justify-content:center;min-width:0;width:auto;height:36px;min-height:36px;padding:4px 7px;font-size:12px;white-space:nowrap;gap:4px}
+#paymentPane .heading-tools .ui-icon{width:15px;height:15px;margin-right:3px}
+#paymentPane .basket-minus.trash-position{width:34px;min-width:34px;height:34px;min-height:34px;color:#a52626;display:flex;align-items:center;justify-content:center}
+#paymentPane .basket-minus.trash-position .ui-icon{width:16px;height:16px}
+body.night-mode #paymentPane .basket-minus.trash-position{color:#f3b2b2}
+#paymentPane #discard{width:auto;display:block;min-height:36px;margin:7px auto 0;padding:5px 10px;font-size:12px;background:transparent;border-color:transparent;color:#9d343d}
+body.night-mode #paymentPane #discard{background:transparent;color:#ecb5b5;border-color:transparent}
+#paymentPane .total{background:#f4e7d3;color:#4c351c;border:1px solid #e1c6a3}
+#paymentPane .total strong,#paymentPane .change strong{font-size:40px;line-height:1.08;font-weight:800}
+#paymentPane .change{border:1px solid #e4dbd4}
+#paymentPane .change.pay-short{background:#fce6e7;color:#8d222e;border-color:#df9ca3}
+#paymentPane .change.pay-short strong{color:#a52626}
+#paymentPane .change.pay-ready{background:#e0f2e5;color:#165735;border-color:#a5d0b2}
+#paymentPane .change.pay-ready strong{color:#17623a}
+#paymentPane .change.pay-refund{background:#e1edf8;color:#254c73;border-color:#a9c5e0}
+#paymentPane .change.pay-refund strong{color:#254c73}
+#paymentPane .change.pay-neutral strong{color:#746a65}
+#paymentState{display:block;font-size:12px;line-height:1.25;margin-top:4px;color:inherit}
+#paymentPane #finish:not(:disabled){background:#237047;color:#fff;border-color:#237047;opacity:1}
+#paymentPane #finish:disabled{background:#99938e;color:#fff;border-color:#99938e;opacity:.68}
+body.night-mode #paymentPane .total{background:#3b342c;color:#f8e6c9;border-color:#796348}
+body.night-mode #paymentPane .change.pay-short{background:#54272c;color:#ffd1d1;border-color:#97545b}
+body.night-mode #paymentPane .change.pay-short strong{color:#ffb8b8}
+body.night-mode #paymentPane .change.pay-ready{background:#214732;color:#b8e5c8;border-color:#478260}
+body.night-mode #paymentPane .change.pay-ready strong{color:#b8e5c8}
+body.night-mode #paymentPane .change.pay-refund{background:#28425b;color:#badcff;border-color:#557b9e}
+body.night-mode #paymentPane .change.pay-refund strong{color:#badcff}
+body.night-mode #paymentPane .change.pay-neutral strong{color:#c5c2c0}
+body.night-mode #paymentPane #finish:disabled{background:#48484b;color:#bdbdbd;border-color:#5b5b5d;opacity:1}
+#paymentPane .cashkeys button.note-5{background:#62696d;color:#fff;border-color:#62696d}
+#paymentPane .cashkeys button.note-10{background:#a44941;color:#fff;border-color:#a44941}
+#paymentPane .cashkeys button.note-20{background:#346591;color:#fff;border-color:#346591}
+#paymentPane .cashkeys button.note-50{background:#9a5d26;color:#fff;border-color:#9a5d26}
+#paymentPane .cashkeys button.note-100{background:#37734a;color:#fff;border-color:#37734a}
+#paymentPane .cashkeys button.note-200{background:#82742b;color:#fff;border-color:#82742b}
+#paymentPane .cashkeys button.note-500{background:#735286;color:#fff;border-color:#735286}
+body.night-mode #paymentPane .cashkeys button.note-5{background:#62696d;color:#fff;border-color:#62696d}
+body.night-mode #paymentPane .cashkeys button.note-10{background:#a44941;color:#fff;border-color:#a44941}
+body.night-mode #paymentPane .cashkeys button.note-20{background:#346591;color:#fff;border-color:#346591}
+body.night-mode #paymentPane .cashkeys button.note-50{background:#9a5d26;color:#fff;border-color:#9a5d26}
+body.night-mode #paymentPane .cashkeys button.note-100{background:#37734a;color:#fff;border-color:#37734a}
+body.night-mode #paymentPane .cashkeys button.note-200{background:#82742b;color:#fff;border-color:#82742b}
+body.night-mode #paymentPane .cashkeys button.note-500{background:#735286;color:#fff;border-color:#735286}
+#cashFeedback{float:right;color:#237047;font-size:13px;font-weight:750;min-height:16px}
+#drinkFeedback{font-size:12px;color:#237047;font-weight:650;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:46%;margin-left:auto;margin-right:7px}
+body.night-mode #cashFeedback,body.night-mode #drinkFeedback{color:#9de7b8}
+#saleSuccess{position:fixed;z-index:90;top:56px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:340px;pointer-events:none;background:#214732;color:#e4faeb;border:1px solid #70c990;border-radius:12px;padding:12px 16px;text-align:center;box-shadow:0 6px 18px #0004}
+#saleSuccess .success-top{display:flex;align-items:center;justify-content:center;font-weight:750;font-size:17px}
+#saleSuccess .ui-icon{margin-right:7px}#saleSuccess strong{display:block;font-size:32px;margin:3px 0}#saleSuccess small{color:#c2e6d0;display:block}
+#settings .setting-category{border:1px solid #e4dbd4;border-radius:10px;margin-bottom:8px;overflow:hidden}
+#settings .category-toggle{display:flex;align-items:center;text-align:left;width:100%;border:0;border-radius:0;background:#fff;min-height:60px;padding:10px 12px;color:inherit}
+#settings .category-toggle .ui-icon{margin-right:12px;width:23px;height:23px;color:#746a65}
+#settings .category-text{flex:1;min-width:0;display:block}#settings .category-text b{display:block;font-size:16px}#settings .category-text small{display:block;font-size:12px;line-height:1.25;margin-top:3px;font-weight:400}
+#settings .category-arrow{margin-left:8px;color:#746a65;font-size:17px}
+#settings .category-toggle[aria-expanded="true"] .category-arrow{transform:rotate(180deg)}
+#settings .category-body{border-top:1px solid #e4dbd4;padding:12px}
+body.night-mode #settings .setting-category,body.night-mode #settings .category-body{border-color:#515157}
+body.night-mode #settings .category-toggle{background:#303034;color:#f1eeeb}
+body.night-mode #settings .category-toggle .ui-icon,body.night-mode #settings .category-arrow{color:#c5c2c0}
+nav button .ui-icon{width:19px;height:19px;margin-right:6px;vertical-align:middle}
+nav button span{vertical-align:middle}
+@media(max-width:600px){nav button .ui-icon{display:block;margin:0 auto 3px;width:18px;height:18px}nav button span{display:block;font-size:12px}#paymentPane .total strong,#paymentPane .change strong,body.mobile-layout #paymentPane .total strong,body.mobile-layout #paymentPane .change strong{font-size:36px}#paymentPane .heading-tools .undo-small,#paymentPane .heading-tools .mini-tool{font-size:11px;padding:4px 5px}#settings .category-body{padding:8px}}
+
+/* V6.26: keyboard-free cash and tip entry, ES5/iOS 10-compatible. */
+#cashOpen{display:flex;width:100%;min-height:48px;align-items:center;justify-content:space-between;text-align:left;font-size:24px;font-weight:700;padding:9px 12px;border:1px solid #cfc4bd;background:#fff}
+#cashOpen svg{flex:none;margin-left:6px;pointer-events:none;color:#746a65}
+#cashOpen.empty #cashDisplay{color:#8a817c;font-weight:500}
+body.night-mode #cashOpen{background:#303034;color:#f1eeeb;border-color:#57575d}
+body.night-mode #cashOpen svg,body.night-mode #cashOpen.empty #cashDisplay{color:#c5c2c0}
+#tipQuick .tip-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;line-height:1.2}
+#tipQuick .tip-choice b{font-size:15px}#tipQuick .tip-choice small{font-size:10px;display:block;margin-top:4px;font-weight:400;color:inherit;opacity:.88}
+#tipHelp{font-size:12px;margin:5px 0;color:inherit}
+#tipCustom{display:block;min-height:44px}
+#numberOverlay{z-index:120}
+#numberOverlay .number-modal{box-sizing:border-box;max-width:370px;padding:14px;max-height:94%;overflow:auto}
+#numberContext{margin:4px 0 8px}
+#numberValue{border:1px solid #cfc4bd;background:#f5f1ed;border-radius:9px;padding:10px 12px;font-size:32px;line-height:1.12;font-weight:750;text-align:right;min-height:58px;font-variant-numeric:tabular-nums}
+#numberValue.replace-ready{border-color:#852f3b}
+.number-keys{display:flex;flex-wrap:wrap;margin:6px -3px 0}
+.number-keys button{width:calc(33.3333% - 6px);margin:3px;min-height:52px;height:52px;padding:3px;font-size:24px}
+.number-tools{display:flex;align-items:stretch;margin:4px -3px 0}
+.number-tools button{flex:1;min-width:0;margin:3px;padding:6px 3px;min-height:46px;font-size:13px}
+#numberOK:not(:disabled){background:#237047;color:#fff;border-color:#237047}
+.number-preview{font-size:13px;font-weight:650;min-height:16px;margin:6px 0 0;color:#237047}
+#numberError{font-size:13px;margin:4px 0 0}
+body.night-mode #numberValue{background:#303034;color:#f1eeeb;border-color:#57575d}
+body.night-mode #numberValue.replace-ready{border-color:#b9707b}
+body.night-mode .number-preview{color:#a0edb9}
+@media(max-height:500px){#numberOverlay .number-modal{padding:9px}.number-keys button{height:37px;min-height:37px;font-size:20px}#numberValue{min-height:44px;font-size:25px;padding:6px}.number-tools button{min-height:38px}#numberContext{margin:2px 0}}
+
+/* V0.1: 112px minimum tile width, 114px minimum total height, 44px touch controls. */
+#sale .drink-tile,body.ipad-register #sale .drink-tile{min-width:112px;min-height:114px;box-sizing:border-box}
+#sale .drink,body.ipad-register #sale .drink,body.ipad-register #sale .drink.pictured{min-height:68px}
+#sale .drink-controls,body.ipad-register #sale .drink-controls{min-height:44px;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between}
+#sale .drink-controls button,body.ipad-register #sale .drink-controls button{width:44px;min-width:44px;height:44px;min-height:44px;-webkit-flex:none;flex:none;padding:0}
+#sale .drink-controls .num{min-width:0;text-align:center;-webkit-flex:1;flex:1}
+body[data-variant="modern"] #sale .drinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:6px}
+body[data-variant="mobile"] #sale .drinks{display:grid;grid-template-columns:repeat(2,minmax(112px,1fr));gap:6px}
+@media(max-width:265px){body[data-variant="mobile"] #sale .drinks{grid-template-columns:minmax(112px,1fr)}}
+</style></head><body data-variant="modern"><header><h1>Veranstaltungskasse <small>V0.1</small></h1><span class="pill" id="offline">Offline-Status</span></header><div id="testBanner" class="hidden">TESTMODUS – keine echten Buchungen<button id="stopTest" type="button">Testmodus beenden</button></div><main>
+<section id="sale" class="layout"><div id="orderPane"><div class="panel"><h2 class="drinks-heading">Produkte <span id="drinkFeedback" aria-live="polite"></span><span id="itemCount" class="item-count"></span></h2><div id="drinks" class="drinks"></div></div><div class="panel"><h2>Bechereinsatz <small id="depositLabel"></small></h2><div class="row"><div class="grow"><b>Becher ausgegeben</b><br><small id="outValue"></small></div><button class="step" id="outMinus" aria-label="Ausgegebene Becher minus">−</button><span class="num" id="out"></span><button class="step" id="outPlus" aria-label="Ausgegebene Becher plus">+</button></div><div class="row"><div class="grow"><b>Becher retour</b><br><small id="backValue"></small></div><button class="step" id="backMinus" aria-label="Retournierte Becher minus">−</button><span class="num" id="back"></span><button class="step" id="backPlus" aria-label="Retournierte Becher plus">+</button></div></div></div>
+<div id="paymentPane"><div class="panel"><button id="backToOrder" class="back-link">‹ Zur Bestellung</button><div class="payment-heading"><h2>Abrechnung</h2><div class="heading-tools"><button id="undoLast" type="button" class="undo-small" aria-label="Letzten Verkauf rückgängig machen" title="Letzten Verkauf rückgängig machen" disabled><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5 3 11l6 6M3 11h12a5 5 0 0 1 0 10"/></svg><span>Rückgängig</span></button><button id="parkOrder" type="button" class="mini-tool" title="Bestellung parken" aria-label="Bestellung parken"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg><span>Parken</span></button></div></div><div id="basketDetails" aria-label="Aktuelle Bestellung"></div><div class="sum"><span>Produkte</span><b id="drinkSum"></b></div><div class="sum"><span>Bechereinsatz</span><b id="outSum"></b></div><div class="sum"><span>Pfandrückgabe</span><b id="backSum"></b></div><div class="sum hidden" id="tipRow"><span>Trinkgeld</span><b id="tipSum"></b><button type="button" id="tipClear" class="basket-minus" aria-label="Trinkgeld entfernen" title="Trinkgeld entfernen">×</button></div><div class="total"><span id="totalLabel">Zu bezahlen</span><strong id="total"></strong></div><div id="cashArea"><label for="cashOpen">Geld erhalten (€)<span id="cashFeedback" aria-live="polite"></span></label><input id="cash" type="hidden"><button type="button" id="cashOpen" aria-label="Erhaltenes Geld eingeben" aria-haspopup="dialog"><span id="cashDisplay">0,00</span><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h1m6 0h1M8 15h1m6 0h1M8 19h1m6 0h1"/></svg></button><div class="cashkeys" id="cashkeys"></div><div class="cash-extra"><button class="wide" id="clearCash">Geld löschen</button><button class="wide" id="exact">Passend bezahlt</button></div></div><div class="change" id="changeBox"><div class="tip-heading"><span id="changeLabel">Retourgeld</span><button type="button" id="tipToggle" class="tip-toggle" aria-expanded="false" aria-controls="tipPanel">Trinkgeld</button></div><strong id="change">–</strong><small id="paymentState" aria-live="polite"></small><div id="tipPanel" class="hidden"><div id="tipQuick" class="tip-quick"></div><p id="tipHelp"></p><button type="button" id="tipCustom" class="wide" aria-haspopup="dialog">Individuellen Gesamtbetrag eingeben</button><button type="button" id="tipKeep" class="wide">Stimmt so – kein Retourgeld</button></div></div><button class="primary wide" id="finish">Verkauf abschließen</button><button class="wide" id="discard"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></svg> Bestellung löschen</button><div id="status" class="status" role="status"></div></div><div id="parkPanel" class="panel hidden"><h2>Geparkte Bestellungen (<span id="parkCount">0</span>)</h2><p id="parkInfo" class="muted"></p><div id="parkEntries"></div></div></div><div id="checkoutBar"><div><small id="checkoutLabel">Zu bezahlen</small><strong id="checkoutTotal">0,00 €</strong></div></div></section>
+<section id="stats" class="hidden"><div class="panel"><h2>Tagesstatistik</h2><label for="date">Verkaufstag</label><input type="date" id="date"><div id="metrics" class="metrics" style="margin-top:14px"></div><h3>Verkaufte Produkte</h3><div id="sales"></div><h3 style="margin-top:16px">Topseller</h3><label for="rankBy">Sortieren nach</label><select id="rankBy"><option value="qty">Verkaufte Stückzahl</option><option value="revenue">Produktumsatz</option></select><div id="ranking"></div><div id="cupStats" style="margin:14px 0"></div><div class="export"><button id="exportSummary" class="primary">Produktliste als CSV</button><button id="exportAll">Einzelne Vorgänge als CSV</button></div><p class="muted">CSV-Dateien sind mit Excel kompatibel (Semikolon, UTF-8). Bitte regelmäßig exportieren; lokale Browserdaten können gelöscht werden.</p><button id="deleteDay" type="button" class="wide" style="color:#a52626;border-color:#cfa6a6">Tagesstatistik löschen</button><div id="deleteConfirm" class="hidden"><p id="deleteQuestion"></p><button id="deleteYes" class="wide" style="background:#a52626;color:white">Endgültig löschen</button><button id="deleteNo" class="wide">Abbrechen</button></div><div id="csvFallbackBox" class="hidden"><p>CSV zum Kopieren (älterer Browser)</p><textarea id="csvFallback" readonly style="width:100%;height:180px"></textarea></div><p id="deleteDayStatus" class="status" role="status" aria-live="polite"></p></div></section>
+<section id="settings" class="hidden"><div class="panel"><h2>Einstellungen</h2><div class="setting-category"><button type="button" id="cat-products" class="category-toggle" aria-expanded="false" aria-controls="body-products"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h13v9a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4Zm13 1h2a3 3 0 0 1 0 6h-2M7 3v2m4-2v2m4-2v2"/></svg><span class="category-text"><b>Produkte und Preise</b><small>Produkte, Farben, Aktionen, Pfand</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-products" class="category-body hidden"><p class="muted">Änderungen gelten für neue Bestellungen. Bechereinsatz pro Produkt ein- oder ausschalten. Bereits abgeschlossene Verkäufe bleiben unverändert.</p><div class="settings-head"><span>Produkt</span><span>Preis (€)</span><span>Bechereinsatz</span><span></span></div><p class="muted">Mit ↑ / ↓ die Reihenfolge ändern. Unter ⋯ findest du Farben, Aktionen und Ausverkauft.</p><div id="settingsRows"></div><button id="addProduct" class="wide add-product">+ Produkt hinzufügen</button><label for="deposit">Bechereinsatz (€)</label><input id="deposit" inputmode="decimal" style="max-width:160px"><button id="saveSettings" class="primary wide">Produkte und Preise speichern</button><p id="settingsStatus" class="status" role="status"></p></div></div><div class="setting-category"><button type="button" id="cat-device" class="category-toggle" aria-expanded="false" aria-controls="body-device"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M12 17v4m-5 0h10"/></svg><span class="category-text"><b>Geräteeinstellungen</b><small>Gerätename, Nachtmodus, Bildschirm</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-device" class="category-body hidden"><label for="device">Gerätename</label><input id="device" maxlength="40" placeholder="Kasse 1" style="font-size:17px"><label class="pref-check"><input type="checkbox" id="nightPref">Nachtmodus</label><label class="pref-check"><input type="checkbox" id="wakePref">Bildschirm eingeschaltet halten</label><p class="muted" id="wakeStatus"></p><button id="savePrefs" class="wide primary">Geräteeinstellungen speichern</button><p id="prefsStatus" class="status"></p></div></div><div class="setting-category"><button type="button" id="cat-payment" class="category-toggle" aria-expanded="false" aria-controls="body-payment"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M5 12h1m12 0h1"/></svg><span class="category-text"><b>Zahlungseinstellungen</b><small>Geldscheintasten, additive Eingabe</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-payment" class="category-body hidden"><label class="pref-check"><input type="checkbox" id="cashAddPref">Geldscheintasten addieren</label><label for="cashNotesPref">Geldscheintasten (€; mit Semikolon trennen)</label><input id="cashNotesPref" style="font-size:16px"><button id="savePayment" class="wide primary">Zahlungseinstellungen speichern</button><p id="paymentPrefsStatus" class="status"></p></div></div><div class="setting-category"><button type="button" id="cat-security" class="category-toggle" aria-expanded="false" aria-controls="body-security"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l9 4v6c0 5-5 8-9 10-4-2-9-5-9-10V6zM8 12l3 3 5-6"/></svg><span class="category-text"><b>Sicherheit</b><small>Admin-PIN</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-security" class="category-body hidden"><p class="muted">Lokaler Schutz vor versehentlichen Änderungen, keine manipulationssichere Zugriffskontrolle.</p><label for="newPin">Neue vierstellige PIN</label><input type="password" id="newPin" maxlength="4" inputmode="numeric" autocomplete="off"><label for="repeatPin">PIN wiederholen</label><input type="password" id="repeatPin" maxlength="4" inputmode="numeric" autocomplete="off"><button id="savePin" class="wide">PIN speichern</button><button id="removePin" class="wide">PIN deaktivieren</button><p id="pinSettingsStatus" class="status"></p></div></div><div class="setting-category"><button type="button" id="cat-recent" class="category-toggle" aria-expanded="false" aria-controls="body-recent"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 1 3 7M3 4v8h8m1-5v5l4 2"/></svg><span class="category-text"><b>Letzte Verkäufe</b><small>Die letzten 10 Vorgänge</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-recent" class="category-body hidden"><div id="recentSales"></div></div></div><div class="setting-category"><button type="button" id="cat-template" class="category-toggle" aria-expanded="false" aria-controls="body-template"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 18a5 5 0 0 1-1-10 7 7 0 0 1 13 2 4 4 0 0 1 0 8H7z"/></svg><span class="category-text"><b>Globale Vorlage</b><small>Speichern, laden, Token</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-template" class="category-body hidden"><p id="templateStatus" class="muted" role="status"></p><button id="publishTemplate" type="button" class="primary wide">Als Vorlage speichern</button><button id="reloadTemplate" class="wide" type="button">Vorlage laden</button><div id="publishPanel" class="hidden"><label for="templateToken">GitHub-Zugriffstoken</label><input id="templateToken" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" style="font-size:16px"><label for="rememberToken" style="display:flex;align-items:center;margin:10px 0"><input id="rememberToken" type="checkbox" style="width:22px;height:22px;min-height:0;flex:none;margin:0 9px 0 0">Token auf diesem Gerät merken</label><button id="confirmPublish" type="button" class="primary wide">Vorlage veröffentlichen</button><button id="cancelPublish" type="button" class="wide">Abbrechen</button><p class="muted">Nur bei aktivierter Option wird der Token unverschlüsselt im lokalen Browserspeicher abgelegt. Nur auf einem vertrauenswürdigen Gerät verwenden. Der Token wird niemals in die Vorlagendatei geschrieben. Nur Produktliste, Preise, Farben, Reihenfolge, Aktionen und Bechereinsatz werden öffentlich in GitHub gespeichert.</p></div><button id="forgetToken" type="button" class="wide hidden">Gespeicherten Token entfernen</button><p id="tokenStatus" class="muted" role="status"></p><p class="muted">Vorlagen werden ausschließlich manuell gespeichert und geladen. Gerätename und Verkäufe bleiben lokal.</p></div></div><div class="setting-category"><button type="button" id="cat-backup" class="category-toggle" aria-expanded="false" aria-controls="body-backup"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0"/></svg><span class="category-text"><b>Datensicherung</b><small>Sicherung und Wiederherstellung</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-backup" class="category-body hidden"><button id="backupCreate" class="wide">Datensicherung erstellen</button><button id="backupOpen" class="wide">Datensicherung wiederherstellen</button><div id="backupBox" class="hidden"><label for="backupFile">JSON-Datei auswählen (optional)</label><input id="backupFile" type="file" accept=".json,application/json"><label for="backupText">JSON-Sicherung zum Kopieren oder Einfügen</label><textarea id="backupText" style="width:100%;height:150px;font-size:14px"></textarea><button id="backupRestore" class="primary wide">Wiederherstellen (ersetzt lokale Daten)</button></div><p id="backupStatus" class="status"></p><p class="muted">Sicherung enthält Einstellungen und Verkäufe, aber keinen GitHub-Token. Bitte außerhalb des Geräts aufbewahren.</p></div></div><div class="setting-category"><button type="button" id="cat-test" class="category-toggle" aria-expanded="false" aria-controls="body-test"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 3h6m-5 0v7L4 20h16l-6-10V3M7 15h10"/></svg><span class="category-text"><b>Testmodus</b><small>Üben ohne echte Buchungen</small></span><span class="category-arrow" aria-hidden="true">▾</span></button><div id="body-test" class="category-body hidden"><p class="muted">Testbestellungen werden nicht in der echten Statistik gespeichert.</p><button id="startTest" class="wide">Testmodus starten</button><p id="testStatus" class="status"></p></div></div><p class="muted">Diese App ist ein Bestell- und Abrechnungsrechner, keine Registrierkasse. Die Daten liegen ausschließlich lokal auf diesem Gerät bzw. in diesem Browserprofil.</p></div></section></main><div id="numberOverlay" class="action-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="numberTitle"><div class="action-modal number-modal"><h2 id="numberTitle"></h2><p id="numberContext" class="muted"></p><div id="numberValue" role="status" aria-live="polite">0,00 €</div><div id="numberKeys" class="number-keys"></div><p id="numberPreview" class="number-preview" aria-live="polite"></p><p id="numberError" class="error status"></p><div class="number-tools"><button type="button" id="numberClear">Löschen</button><button type="button" id="numberCancel">Abbrechen</button><button type="button" id="numberOK" class="primary">Übernehmen</button></div></div></div><div id="saleSuccess" class="hidden" role="status" aria-live="polite"><div class="success-top"><svg class="ui-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg><span id="successTitle"></span></div><small id="successLabel"></small><strong id="successAmount"></strong><small>Bereit für die nächste Bestellung</small></div><div id="pinOverlay" class="action-overlay hidden"><div class="action-modal" role="dialog" aria-modal="true"><h2>Admin-PIN</h2><input id="pinInput" type="password" maxlength="4" inputmode="numeric" autocomplete="off"><p id="pinError" class="error"></p><button id="pinOK" class="wide primary">Entsperren</button><button id="pinCancel" class="wide">Abbrechen</button></div></div><div id="actionOverlay" class="action-overlay hidden"><div class="action-modal" role="dialog" aria-modal="true" aria-labelledby="actionTitle"><h2 id="actionTitle"></h2><p class="muted">Angebot auswählen</p><div id="actionChoices"></div><button id="actionClose" class="wide">Abbrechen</button></div></div><nav><button data-tab="sale" class="active"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h3l3 13h12l2-10H6"/></svg><span>Kasse</span></button><button data-tab="stats"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 3v18h18M8 17v-5m5 5V7m5 10v-8"/></svg><span>Tagesstatistik</span></button><button data-tab="settings"><svg class="ui-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/><circle cx="12" cy="12" r="7"/></svg><span>Einstellungen</span></button></nav><script src="./core.js"></script></body></html>

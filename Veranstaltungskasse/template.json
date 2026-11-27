@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "products": [
+    {
+      "id": "g1",
+      "name": "Glühwein",
+      "price": 400,
+      "hasDeposit": true,
+      "color": "#852f3b",
+      "actions": []
+    },
+    {
+      "id": "g2",
+      "name": "Beerenpunsch",
+      "price": 400,
+      "hasDeposit": true,
+      "color": "#743b8e",
+      "actions": []
+    },
+    {
+      "id": "g3",
+      "name": "Kinderpunsch",
+      "price": 300,
+      "hasDeposit": true,
+      "color": "#286b48",
+      "actions": []
+    },
+    {
+      "id": "g4",
+      "name": "Eierlikörpunsch",
+      "price": 450,
+      "hasDeposit": true,
+      "color": "#95701d",
+      "actions": []
+    },
+    {
+      "id": "g5",
+      "name": "Hot Aperol",
+      "price": 450,
+      "hasDeposit": true,
+      "color": "#bf531c",
+      "actions": []
+    },
+    {
+      "id": "g6",
+      "name": "Bier",
+      "price": 300,
+      "hasDeposit": false,
+      "color": "#786028",
+      "actions": []
+    },
+    {
+      "id": "g-1795636429443-gpytl46i00h-73sk91i80uf",
+      "name": "Bacardi Cola",
+      "price": 350,
+      "hasDeposit": false,
+      "color": "#414141",
+      "actions": []
+    },
+    {
+      "id": "g-1795636453587-d3yf1z30rq-v75nytrtmz",
+      "name": "Berliner Luft",
+      "price": 250,
+      "hasDeposit": false,
+      "color": "#28748a",
+      "actions": [
+        {
+          "id": "a-legacy-10plus1",
+          "name": "10+1 Aktion",
+          "units": 11,
+          "price": 1250,
+          "cups": 0
+        }
+      ]
+    },
+    {
+      "id": "g-1795710712617-lee7d06dmfp-0aq1kync46zn",
+      "name": "Schnaps / Likör",
+      "price": 250,
+      "hasDeposit": false,
+      "color": "#852f3b",
+      "actions": []
+    },
+    {
+      "id": "g-1795756647836-xtc83bd07t9-i4a2fw1x0ie",
+      "name": "1/8 Wein",
+      "price": 250,
+      "hasDeposit": true,
+      "color": "#852f3b",
+      "actions": []
+    }
+  ],
+  "deposit": 500
+}
