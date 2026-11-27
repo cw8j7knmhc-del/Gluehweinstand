@@ -1,4 +1,4 @@
-const CACHE='gluehweinstand-v6-30';const ASSETS=['./','./index.html','./mobile.html','./manifest.webmanifest','./mobile.webmanifest','./icon.svg'];
+const CACHE='gluehweinstand-v6-31';const ASSETS=['./','./index.html','./mobile.html','./manifest.webmanifest','./mobile.webmanifest','./icon.svg'];
 const scope=new URL(self.registration.scope);const desktopURL=new URL('./index.html',scope).href;const mobileURL=new URL('./mobile.html',scope).href;
 function pageKey(url){if(url.pathname===scope.pathname||url.pathname===new URL(desktopURL).pathname)return desktopURL;if(url.pathname===new URL(mobileURL).pathname)return mobileURL;return null;}
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS.map(u=>new Request(u,{cache:'reload'})))).then(()=>self.skipWaiting())));
